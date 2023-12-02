@@ -27,4 +27,10 @@ public class VideoService
 		}
 	}
 
+	public VideoVo GetRelatedVideo(int v_id)
+	{
+		System.out.println("[VideoDao] GetRelatedVideo");
+		VideoVo relatedVideo = videoDao.SelectVideo(v_id);
+		return relatedVideo;
+	}
 }

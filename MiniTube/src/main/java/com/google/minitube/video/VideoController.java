@@ -1,13 +1,13 @@
 package com.google.minitube.video;
 
-import java.io.File;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,10 +30,19 @@ public class VideoController
 	@Autowired
 	UploadVideoService uploadVideoService;
 	
-	@GetMapping("/watch")
-	public String Watch()
+	@GetMapping("/watch/{idx}")
+	public String Watch(@PathVariable("idx") int idx, Model model)
 	{
-		return "video/watch";
+		VideoVo relatedVideo = videoService.GetRelatedVideo(idx);
+		if(relatedVideo != null)
+		{
+			model.addAttribute("video", relatedVideo);
+			return "video/watch";
+		}
+		else
+		{
+			return "video/watch";	
+		}
 	}
 	
 	@PostMapping("/uploadVideoConfirm")

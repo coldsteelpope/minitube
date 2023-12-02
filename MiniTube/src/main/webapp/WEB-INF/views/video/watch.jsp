@@ -9,7 +9,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<img src="<c:url value="/librarythumbs/33c10d67856649c6a2fc9636cd5163f5.png" />" />
-	<video autoplay="autoplay" controls="controls" src="<c:url value="/libraryVideos/6a0d4048fd2943d6968f4fed03f04084.mp4" />"></video>
+	<img src="<c:url value="/librarythumbs/${requestScope.video.v_thumbnail}"/>" />
+	<video autoplay="autoplay" controls="controls" src="<c:url value="/libraryVideos/${requestScope.video.v_video}"/>"></video>
+	
+	
 </body>
 </html>
