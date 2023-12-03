@@ -1,14 +1,20 @@
 package com.google.minitube.member;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/member")
 public class MemberController 
 {
+	@Autowired
+	MemberService memberService;
+	
 	@GetMapping(value = "/uploadVideo")
 	public String uploadVideo()
 	{
@@ -25,5 +31,12 @@ public class MemberController
 	public String uploadVideoFial()
 	{
 		return "member/create/create_video_ng";
+	}
+	
+	@GetMapping("/profile/{idx}")
+	public String Profile(@PathVariable("idx") int idx, Model model)
+	{
+		MemberVo memberVo = memberService.GetMember(idx);
+		return "member/profile";
 	}
 }

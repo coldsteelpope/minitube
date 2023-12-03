@@ -1,5 +1,9 @@
 package com.google.minitube.member;
 
+import java.util.List;
+
+import com.google.minitube.video.VideoVo;
+
 public class MemberVo 
 {
 	int m_id;
@@ -9,8 +13,16 @@ public class MemberVo
 	String m_firstname;
 	String m_lastname;
 	
+	List<VideoVo> m_videos;
+	
 	public int getM_id() {
 		return m_id;
+	}
+	public List<VideoVo> getM_videos() {
+		return m_videos;
+	}
+	public void setM_videos(List<VideoVo> m_videos) {
+		this.m_videos = m_videos;
 	}
 	public void setM_id(int m_id) {
 		this.m_id = m_id;

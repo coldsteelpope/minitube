@@ -1,8 +1,15 @@
 package com.google.minitube.comment;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.google.minitube.member.MemberVo;
 
 @Controller
 @RequestMapping("/comment")
@@ -10,4 +17,16 @@ public class CommentController
 {
 	@Autowired
 	CommentService commentService;
+	
+	@PostMapping("/confirm/{v_id}")
+	public String Confirm(CommentVo commentVo, @PathVariable("v_id") int v_id, HttpServletRequest request)
+	{
+		System.out.println("[CommentController] Confirm(commentVo, v_id)");
+		
+		System.out.println(v_id);
+		HttpSession session = request.getSession();
+		MemberVo memberVo = (MemberVo)session.getAttribute("loginedMemberVo");
+		int result = commentService.confirm(commentVo, memberVo, v_id);
+		return "redirect:/video/watch/" + Integer.toString(v_id);
+	}
 }

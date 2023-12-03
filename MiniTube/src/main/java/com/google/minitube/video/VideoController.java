@@ -1,5 +1,8 @@
 package com.google.minitube.video;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.minitube.comment.CommentVo;
 import com.google.minitube.member.MemberVo;
 import com.google.minitube.video.util.UploadThumbnailService;
 import com.google.minitube.video.util.UploadVideoService;
@@ -34,9 +38,12 @@ public class VideoController
 	public String Watch(@PathVariable("idx") int idx, Model model)
 	{
 		VideoVo relatedVideo = videoService.GetRelatedVideo(idx);
+		List<CommentVo> relatedComments = videoService.GetRelatedVideoComments(idx);
+		
 		if(relatedVideo != null)
 		{
 			model.addAttribute("video", relatedVideo);
+			model.addAttribute("comments", relatedComments);
 			return "video/watch";
 		}
 		else

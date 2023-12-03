@@ -1,5 +1,7 @@
 package com.google.minitube.comment;
 
+import java.util.List;
+
 public class CommentVo 
 {
 	int c_id;
@@ -10,6 +12,15 @@ public class CommentVo
 	String c_content;
 	String c_reg_date;
 	String c_mod_date;
+	
+	List<CommentVo> comments;
+	
+	public List<CommentVo> getComments() {
+		return comments;
+	}
+	public void setComments(List<CommentVo> comments) {
+		this.comments = comments;
+	}
 	
 	public int getC_id() {
 		return c_id;

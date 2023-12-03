@@ -1,7 +1,13 @@
 package com.google.minitube.video;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.google.minitube.comment.CommentDao;
+import com.google.minitube.comment.CommentVo;
 
 @Service
 public class VideoService 
@@ -11,6 +17,9 @@ public class VideoService
 	
 	@Autowired
 	VideoDao videoDao;
+	
+	@Autowired
+	CommentDao commentDao;
 	
 	public int uploadVideoConfirm(VideoVo videoVo) 
 	{
@@ -32,5 +41,11 @@ public class VideoService
 		System.out.println("[VideoDao] GetRelatedVideo");
 		VideoVo relatedVideo = videoDao.SelectVideo(v_id);
 		return relatedVideo;
+	}
+
+	public List<CommentVo> GetRelatedVideoComments(int v_id)
+	{
+		List<CommentVo> commentVos = commentDao.SelectAllComments(v_id);
+		return commentVos;
 	}
 }
