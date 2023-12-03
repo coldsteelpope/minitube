@@ -36,7 +36,18 @@ public class MemberController
 	@GetMapping("/profile/{idx}")
 	public String Profile(@PathVariable("idx") int idx, Model model)
 	{
+		String nextPage = "member/profile";
 		MemberVo memberVo = memberService.GetMember(idx);
-		return "member/profile";
+		
+		
+		if(memberVo != null)
+		{
+			model.addAttribute("member", memberVo);
+		}
+		else
+		{
+
+		}
+		return nextPage;
 	}
 }
