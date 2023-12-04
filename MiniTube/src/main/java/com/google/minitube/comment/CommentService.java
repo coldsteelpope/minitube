@@ -29,5 +29,22 @@ public class CommentService
 			return COMMENT_CREATE_FAIL;
 		}
 	}
+
+	public int ChildConfirm(CommentVo commentVo, MemberVo memberVo, int v_id, int c_id) 
+	{
+		System.out.println("[CommentService] ChildConfirm");
+		int result = commentDao.InsertChildComment(commentVo, memberVo, v_id, c_id);
+		if(result > 0)
+		{
+			System.out.println("[+] Child Comment Create Success");
+			return COMMENT_CREATE_SUCCESS;
+		}
+		else
+		{
+			System.out.println("[-] Child Comment Create Fail!");
+			return COMMENT_CREATE_FAIL;
+		}
+	}
+
 	
 }

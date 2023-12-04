@@ -8,6 +8,8 @@ public class MemberVo
 {
 	int m_id;
 	
+	String m_profile_img;
+
 	String m_mail;
 	String m_pw;
 	String m_firstname;
@@ -15,6 +17,12 @@ public class MemberVo
 	
 	List<VideoVo> m_videos;
 	
+	public String getM_profile_img() {
+		return m_profile_img;
+	}
+	public void setM_profile_img(String m_profile_img) {
+		this.m_profile_img = m_profile_img;
+	}
 	public int getM_id() {
 		return m_id;
 	}

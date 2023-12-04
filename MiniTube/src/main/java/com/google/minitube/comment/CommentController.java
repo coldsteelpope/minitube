@@ -22,11 +22,20 @@ public class CommentController
 	public String Confirm(CommentVo commentVo, @PathVariable("v_id") int v_id, HttpServletRequest request)
 	{
 		System.out.println("[CommentController] Confirm(commentVo, v_id)");
-		
-		System.out.println(v_id);
 		HttpSession session = request.getSession();
 		MemberVo memberVo = (MemberVo)session.getAttribute("loginedMemberVo");
 		int result = commentService.confirm(commentVo, memberVo, v_id);
+		return "redirect:/video/watch/" + Integer.toString(v_id);
+	}
+	
+	@PostMapping("/childconfirm/{c_id}/{v_id}")
+	public String ChildConfirm(CommentVo commentVo, @PathVariable("c_id") int c_id, @PathVariable("v_id") int v_id, HttpServletRequest request)
+	{
+		System.out.println("[CommentController] ChildConfirm(commentVo, c_id, request)");
+		HttpSession session = request.getSession();
+		MemberVo memberVo = (MemberVo)session.getAttribute("loginedMemberVo");
+		
+		int result = commentService.ChildConfirm(commentVo, memberVo, v_id, c_id);
 		return "redirect:/video/watch/" + Integer.toString(v_id);
 	}
 }

@@ -1,5 +1,7 @@
 package com.google.minitube.video;
 
+import com.google.minitube.member.MemberVo;
+
 public class VideoVo 
 {
 	int v_id;
@@ -14,7 +16,14 @@ public class VideoVo
 	String v_reg_date;
 	String v_mod_date;
 	
+	MemberVo v_member;
 
+	public MemberVo getV_member() {
+		return v_member;
+	}
+	public void setV_member(MemberVo v_member) {
+		this.v_member = v_member;
+	}
 	public int getV_m_id() {
 		return v_m_id;
 	}

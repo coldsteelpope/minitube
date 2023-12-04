@@ -39,9 +39,28 @@
         <c:forEach items="${comments}" var="comment">
             <li>
             	${comment.getC_content()}
-				<c:forEach items="${comment.getComments()}" var="childComment">
-					${childComment.getC_content()}
-				</c:forEach>
+            	<div>
+            		<div>
+            			<% 
+            			if(loginedMemberVo != null)
+            			{	
+            			%>
+            			<form action="<c:url value="/comment/childconfirm/${comment.getC_id()}/${video.v_id}" />" method="post" >
+            				<textarea placeholder="댓글 입력..." name="c_content"></textarea>
+            				<button type="submit">
+            					댓글 추가
+            				</button>
+            			</form>
+            			<%
+            			}
+            			%>
+            		</div>
+            		<div>
+						<c:forEach items="${comment.getComments()}" var="childComment">
+							${childComment.getC_content()}
+						</c:forEach>
+					</div>
+				</div>
             </li>
             <!-- CommentVo의 content 등 각각의 필드에 맞게 출력 -->
         </c:forEach>

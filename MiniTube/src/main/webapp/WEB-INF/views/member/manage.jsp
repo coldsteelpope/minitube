@@ -5,30 +5,18 @@
     
 <!DOCTYPE html>
 
-<%
-	MemberVo loginedMemberVo = (MemberVo)session.getAttribute("loginedMemberVo");
-%>
-
 
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Manage</title>
 </head>
 <body>
-	<div>
-		<img src=<c:url value="${member_img}" /> />
-	</div>
-	<div>
-		${member.getM_lastname()} ${member.getM_firstname()}
-	</div>
+	<h1>Hi!</h1>
 	<section>
 		<div>
 			<c:forEach items="${member.getM_videos()}" var="m_video">
-				<a href="<c:url value="/video/watch/${m_video.getV_id()}" />">
-					<img src="<c:url value="/librarythumbs/${m_video.getV_thumbnail()}" />" />
-				</a>
-				
+				<img src="<c:url value="/librarythumbs/${m_video.getV_thumbnail()}" />" />
 			</c:forEach>
 		</div>
 	</section>

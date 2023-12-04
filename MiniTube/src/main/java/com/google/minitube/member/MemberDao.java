@@ -36,6 +36,7 @@ public class MemberDao
 					memberVo.setM_lastname(rs.getString("m_lastname"));
 					memberVo.setM_mail(rs.getString("m_mail"));
 					memberVo.setM_pw(rs.getString("m_pw"));
+					memberVo.setM_profile_img(rs.getString("m_profile_img"));
 					
 					String videoSql = "SELECT * FROM minitube_video WHERE v_m_id = ?";
 					List<VideoVo> videoVos = new ArrayList<VideoVo>();

@@ -1,6 +1,9 @@
 package com.google.minitube.member;
 
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,21 +36,38 @@ public class MemberController
 		return "member/create/create_video_ng";
 	}
 	
+	@GetMapping("/manage/{idx}")
+	public String Manage(@PathVariable("idx") int idx, Model model, HttpServletRequest request)
+	{
+		String nextPage = "member/manage";
+		MemberVo memberVo = memberService.GetMember(idx);
+		
+		HttpSession session = request.getSession();
+		MemberVo loginedMemberVo = (MemberVo)session.getAttribute("loginedMemberVo");
+		
+		if(loginedMemberVo != null && idx == loginedMemberVo.getM_id())
+		{
+			model.addAttribute("member", memberVo);
+			return nextPage;
+		}
+		else
+		{
+			// 해당하는 유저가 아닐때
+			return "redirect:/auth/signin";
+		}
+	}
+	
 	@GetMapping("/profile/{idx}")
 	public String Profile(@PathVariable("idx") int idx, Model model)
 	{
 		String nextPage = "member/profile";
 		MemberVo memberVo = memberService.GetMember(idx);
 		
-		
-		if(memberVo != null)
-		{
-			model.addAttribute("member", memberVo);
-		}
-		else
-		{
+		model.addAttribute("member", memberVo);
+		String member_img = memberVo.getM_profile_img();
+		member_img = (member_img == null) ? "/resources/blank_pic.png" : "/librarythumbs/profile/" + member_img;
+		model.addAttribute("member_img", member_img);
 
-		}
 		return nextPage;
 	}
 }

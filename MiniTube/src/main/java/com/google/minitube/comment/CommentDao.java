@@ -102,4 +102,27 @@ public class CommentDao
 		}
 		return commentVos;
 	}
+
+	public int InsertChildComment(CommentVo commentVo, MemberVo memberVo, int v_id, int c_id) 
+	{
+		System.out.println("[CommentDao] InsertChildComment");
+		String sql = "INSERT INTO minitube_comment ";
+		sql += "(c_v_id, c_m_id, c_c_id, c_content, c_reg_date, c_mod_date) VALUES ";
+		sql += "(?, ?, ?, ?, NOW(), NOW())";
+		
+		int result = -1;
+		try
+		{
+			result = jdbcTemplate.update(sql, 
+					v_id, 
+					memberVo.getM_id(),
+					c_id,
+					commentVo.getC_content());
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return result;
+	}
 }
