@@ -16,6 +16,7 @@
 	<resources mapping="/resources/**" location="/resources/" />
 	<resources mapping="/librarythumbs/**" location="file:///C:/library/upload/thumbs/" />
 	<resources mapping="/libraryVideos/**" location="file:///C:/library/upload/videos/" />
+	<resources mapping="/libraryProfiles/**" location="file:///C:/library/upload/profiles/" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">

@@ -18,6 +18,27 @@ public class MemberDao
 	@Autowired
 	JdbcTemplate jdbcTemplate;
 	
+	public int UpdateMemberProfileImage(String profileImageName, MemberVo memberVo)
+	{
+		System.out.println("[MemberDao] UpdateMemberProfileImage");
+		String sql = "UPDATE minitube_member SET ";
+		sql += "m_profile_img = ? WHERE m_id = ?";
+		
+		int result = -1;
+		try
+		{
+			result = jdbcTemplate.update(sql, 
+				profileImageName,
+				memberVo.getM_id()
+			);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
 	public MemberVo SelectMember(int m_id)
 	{
 		System.out.println("[MemberDao] SelectMember(m_id)");

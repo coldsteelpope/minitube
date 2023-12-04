@@ -15,6 +15,23 @@
 	<h1>Hi!</h1>
 	<section>
 		<div>
+			<img src=<c:url value="${member_img}" /> />
+			
+			<form 
+				action="<c:url value="/member/edit/profile-image/${member.getM_id()}" />"
+				method="post" 
+				enctype="multipart/form-data"
+			>	
+				<input type="file" name="profileImageFile" />
+				<button type="submit">
+					이미지 변경하기
+				</button>
+			</form>
+		</div>
+	</section>
+	
+	<section>
+		<div>
 			<c:forEach items="${member.getM_videos()}" var="m_video">
 				<img src="<c:url value="/librarythumbs/${m_video.getV_thumbnail()}" />" />
 			</c:forEach>
