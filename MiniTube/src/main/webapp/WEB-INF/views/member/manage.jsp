@@ -33,6 +33,12 @@
 	<section>
 		<div>
 			<c:forEach items="${member.getM_videos()}" var="m_video">
+				<div>
+					<form action="<c:url value="/video/delete/${m_video.getV_id()}/${member.getM_id()}" />" method="post">
+						<button type="submit">Delete</button>
+					</form>
+				</div>
+							
 				<img src="<c:url value="/librarythumbs/${m_video.getV_thumbnail()}" />" />
 			</c:forEach>
 		</div>

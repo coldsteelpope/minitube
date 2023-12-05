@@ -16,9 +16,14 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<img src="<c:url value="/librarythumbs/${requestScope.video.v_thumbnail}"/>" />
-	<video autoplay="autoplay" controls="controls" src="<c:url value="/libraryVideos/${requestScope.video.v_video}"/>"></video>
-	
+	<div>
+		<video autoplay="autoplay" controls="controls" src="<c:url value="/libraryVideos/${requestScope.video.v_video}"/>"></video>
+		<div>
+			<a href=<c:url value="/member/profile/${video.getV_member().getM_id()}" />>
+				<img src="<c:url value="/libraryProfiles/${video.getV_member().getM_profile_img()}" />" />
+			</a>
+		</div>
+	</div>
 	
 	<% 
 	if(loginedMemberVo != null)

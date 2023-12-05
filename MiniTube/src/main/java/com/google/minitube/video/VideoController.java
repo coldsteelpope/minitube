@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -52,6 +53,17 @@ public class VideoController
 		}
 	}
 	
+	@PostMapping("/delete/{idx}/{m_id}")
+	public String Delete(@PathVariable("idx") int idx, @PathVariable("m_id") int m_id)
+	{
+		System.out.println("[VideoController] Delete(idx)");
+		
+		
+		int result = videoService.deleteVideo(idx);
+		
+		return "redirect:/member/manage/" + Integer.toString(m_id);
+	}
+	
 	@PostMapping("/uploadVideoConfirm")
 	public String UploadVideoConfirm(VideoVo videoVo, @RequestParam("thumbnailFile") MultipartFile thumbnailFile, @RequestParam("videoFile") MultipartFile videoFile, HttpServletRequest request)
 	{
@@ -85,17 +97,5 @@ public class VideoController
 		return nextPage;
 	}
 	
-	/*
-	 * public void CreateDir() { String thumbUploadDir =
-	 * "C:\\library\\upload\\thumbs"; String videoUploadDir =
-	 * "C:\\library\\upload\\videos";
-	 * 
-	 * File f = new File(thumbUploadDir); if(f.exists() == false) { if(f.mkdir()) {
-	 * System.out.println("thumbnail folder created!"); } else {
-	 * System.out.println("thumbnail folder created fail!"); } }
-	 * 
-	 * f = new File(videoUploadDir); if(f.exists() == false) { if(f.mkdir()) {
-	 * System.out.println("video folder created!"); } else {
-	 * System.out.println("video folder created Fail!"); } } }
-	 */
+	
 }

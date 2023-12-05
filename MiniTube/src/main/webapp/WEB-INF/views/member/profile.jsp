@@ -7,6 +7,7 @@
 
 <%
 	MemberVo loginedMemberVo = (MemberVo)session.getAttribute("loginedMemberVo");
+	MemberVo currentMemberVo = (MemberVo)request.getAttribute("member");
 %>
 
 
@@ -22,6 +23,27 @@
 	<div>
 		${member.getM_lastname()} ${member.getM_firstname()}
 	</div>
+	
+	<%
+	if(loginedMemberVo != null && loginedMemberVo.getM_id() == currentMemberVo.getM_id())
+	{
+	%>
+	<section>
+		<div>
+			<a href="<c:url value="/video/uploadVideoConfirm" />">
+				UPLOAD
+			</a>
+		</div>
+		<div>
+			<a href="<c:url value="/member/manage/${member.getM_id()}" />">
+				MANAGE
+			</a>
+		</div>
+	</section>
+	<% 	
+	}
+	%>
+	
 	<section>
 		<div>
 			<c:forEach items="${member.getM_videos()}" var="m_video">

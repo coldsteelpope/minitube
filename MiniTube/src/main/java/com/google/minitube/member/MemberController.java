@@ -44,8 +44,6 @@ public class MemberController
 		return "member/create/create_video_ng";
 	}
 	
-
-	
 	@GetMapping("/manage/{idx}")
 	public String Manage(@PathVariable("idx") int idx, Model model, HttpServletRequest request)
 	{

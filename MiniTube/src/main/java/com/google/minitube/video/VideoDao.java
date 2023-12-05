@@ -224,4 +224,10 @@ public class VideoDao
 		
 		return videoVos;
 	}
+
+	public int deleteVideo(int idx) {
+		String sql = "DELETE FROM minitube_video WHERE v_id = ?";
+		int result = jdbcTemplate.update(sql, idx);
+		return result;
+	}
 }

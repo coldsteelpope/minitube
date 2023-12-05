@@ -15,6 +15,9 @@ public class VideoService
 	final static public int VIDEO_CREATE_SUCCESS = 1;
 	final static public int VIDEO_CREATE_FAIL = -1;
 	
+	final static public int VIDEO_DELETE_SUCCESS = 1;
+	final static public int VIDEO_DELETE_FAIL = -1;
+	
 	@Autowired
 	VideoDao videoDao;
 	
@@ -60,4 +63,19 @@ public class VideoService
 		List<VideoVo> videoVos = videoDao.SelectSearchVideos(SearchQuery);
 		return videoVos;
  	}
+
+	public int deleteVideo(int idx) 
+	{
+		int result = videoDao.deleteVideo(idx);
+		if(result > 0)
+		{
+			System.out.println("[VideoService] Video Delete Success!");
+			return VIDEO_DELETE_SUCCESS;
+		}
+		else
+		{
+			System.out.println("[VideoService] Video Delete Fail!");
+			return VIDEO_DELETE_FAIL;
+		}
+	}
 }

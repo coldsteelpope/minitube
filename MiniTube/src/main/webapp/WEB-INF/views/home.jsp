@@ -31,11 +31,7 @@ else
 %>
 
 <c:forEach items="${videos}" var="videoEle">
-	<div>
-		<form action="<c:url value="/video/delete/${videoEle.getV_id()}" />">
-			<button type="submit">Delete</button>
-		</form>
-	</div>
+
 	<a href=<c:url value="/video/watch/${videoEle.getV_id()}" />>
 		<img src=<c:url value="/librarythumbs/${videoEle.getV_thumbnail()}" /> />
 	</a>
