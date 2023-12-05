@@ -48,4 +48,16 @@ public class VideoService
 		List<CommentVo> commentVos = commentDao.SelectAllComments(v_id);
 		return commentVos;
 	}
+	
+	public List<VideoVo> GetAllVideos()
+	{
+		List<VideoVo> videoVos = videoDao.SelectAllVideos();
+		return videoVos;
+	}
+	
+	public List<VideoVo> GetSearchedVideos(String SearchQuery)
+	{
+		List<VideoVo> videoVos = videoDao.SelectSearchVideos(SearchQuery);
+		return videoVos;
+ 	}
 }
