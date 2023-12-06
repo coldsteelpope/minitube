@@ -230,4 +230,63 @@ public class VideoDao
 		int result = jdbcTemplate.update(sql, idx);
 		return result;
 	}
+
+	public List<VideoVo> SelectTopThreeVideos() 
+	{
+		System.out.println("[VideoDao] SelectTopThreeVideos");
+		String sql = "SELECT * FROM minitube_video ORDER BY v_mod_date DESC LIMIT 3";
+		List<VideoVo> videoVos = new ArrayList<VideoVo>();
+		
+		try
+		{
+			videoVos = jdbcTemplate.query(sql, new RowMapper<VideoVo>() {
+				@Override
+				public VideoVo mapRow(ResultSet rs, int rowNum) throws SQLException
+				{
+					VideoVo videoVo = new VideoVo();
+					videoVo.setV_id(rs.getInt("v_id"));
+					videoVo.setV_m_id(rs.getInt("v_m_id"));
+					videoVo.setV_category(rs.getString("v_category"));
+					videoVo.setV_description(rs.getString("v_description"));
+					videoVo.setV_video(rs.getString("v_video"));
+					videoVo.setV_thumbnail(rs.getString("v_thumbnail"));
+					videoVo.setV_title(rs.getString("v_title"));
+					videoVo.setV_reg_date(rs.getString("v_reg_date"));
+					videoVo.setV_mod_date(rs.getString("v_mod_date"));
+					
+					String memberSql = "SELECT * FROM minitube_member WHERE m_id = ?";
+					List<MemberVo> memberVos = new ArrayList<MemberVo>();
+					
+					try
+					{
+						memberVos = jdbcTemplate.query(memberSql, new RowMapper<MemberVo>() {
+							@Override
+							public MemberVo mapRow(ResultSet m_rs, int m_rowNum) throws SQLException
+							{
+								MemberVo memberVo = new MemberVo();
+								memberVo.setM_id(m_rs.getInt("m_id"));
+								memberVo.setM_firstname(m_rs.getString("m_firstname"));
+								memberVo.setM_lastname(m_rs.getString("m_lastname"));
+								memberVo.setM_mail(m_rs.getString("m_mail"));
+								memberVo.setM_pw(m_rs.getString("m_pw"));
+								memberVo.setM_profile_img(m_rs.getString("m_profile_img"));			
+								return memberVo;
+							}
+						}, videoVo.getV_m_id());
+					}
+					catch(Exception e)
+					{
+						e.printStackTrace();
+					}
+					videoVo.setV_member(memberVos.get(0));
+					return videoVo;
+				}
+			});
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return videoVos;
+	}
 }

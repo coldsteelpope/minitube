@@ -32,8 +32,11 @@ public class HomeController {
 		System.out.println("[HomeController] home");
 		
 		List<VideoVo> videoVos = videoService.GetAllVideos();
-		model.addAttribute("videos", videoVos);
 		
+		List<VideoVo> topVideoVos = videoService.GetTopThreeVideos();
+		
+		model.addAttribute("videos", videoVos);
+		model.addAttribute("topVideos", topVideoVos);
 		
 		return "home";
 	}

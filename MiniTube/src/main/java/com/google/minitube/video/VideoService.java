@@ -79,4 +79,10 @@ public class VideoService
 			return VIDEO_DELETE_FAIL;
 		}
 	}
+
+	public List<VideoVo> GetTopThreeVideos() 
+	{
+		List<VideoVo> topVideoVos = videoDao.SelectTopThreeVideos();
+		return topVideoVos;
+	}
 }

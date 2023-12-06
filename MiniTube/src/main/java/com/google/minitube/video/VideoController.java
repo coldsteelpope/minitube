@@ -41,6 +41,8 @@ public class VideoController
 		VideoVo relatedVideo = videoService.GetRelatedVideo(idx);
 		List<CommentVo> relatedComments = videoService.GetRelatedVideoComments(idx);
 		
+		
+		
 		if(relatedVideo != null)
 		{
 			model.addAttribute("video", relatedVideo);
