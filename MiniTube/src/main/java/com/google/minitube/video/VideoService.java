@@ -60,6 +60,7 @@ public class VideoService
 	
 	public List<VideoVo> GetSearchedVideos(String SearchQuery)
 	{
+		SearchQuery = '%' + SearchQuery + '%';
 		List<VideoVo> videoVos = videoDao.SelectSearchVideos(SearchQuery);
 		return videoVos;
  	}
