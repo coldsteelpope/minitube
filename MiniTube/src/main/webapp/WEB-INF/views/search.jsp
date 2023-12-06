@@ -9,6 +9,14 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<div>
+		<form action=<c:url value="/search" />>
+			<input type="text" name="v_title" placeholder="search" />
+			<button type="submit">
+				Search
+			</button>
+		</form>
+	</div>
 	<section>
 		<c:forEach items="${videos}" var="videoEle">
 			<a href=<c:url value="/video/watch/${videoEle.getV_id()}" />>

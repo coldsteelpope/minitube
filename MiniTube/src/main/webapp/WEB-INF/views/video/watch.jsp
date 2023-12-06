@@ -8,6 +8,8 @@
 
 <% 
 	MemberVo loginedMemberVo = (MemberVo)session.getAttribute("loginedMemberVo");
+
+
 %>
 <!DOCTYPE html>
 <html>
@@ -41,34 +43,78 @@
 	}
 	%>
 	<div>
-        <c:forEach items="${comments}" var="comment">
-            <li>
-            	${comment.getC_content()}
-            	<div>
-            		<div>
-            			<% 
-            			if(loginedMemberVo != null)
-            			{	
-            			%>
-            			<form action="<c:url value="/comment/childconfirm/${comment.getC_id()}/${video.v_id}" />" method="post" >
-            				<textarea placeholder="댓글 입력..." name="c_content"></textarea>
-            				<button type="submit">
-            					댓글 추가
-            				</button>
-            			</form>
-            			<%
-            			}
-            			%>
-            		</div>
-            		<div>
-						<c:forEach items="${comment.getComments()}" var="childComment">
-							${childComment.getC_content()}
-						</c:forEach>
+		<%
+		List<CommentVo> comments = (List<CommentVo>)request.getAttribute("comments");
+		for(int i = 0; i < comments.size(); ++i)
+		{
+			CommentVo currentComment = comments.get(i);
+		%>
+			<div>
+				<%
+				if(loginedMemberVo != null && (loginedMemberVo.getM_id() == currentComment.getC_m_id()))
+				{
+				%>
+				<div>
+					<form action="<c:url value="/comment/delete" />/<%=currentComment.getC_id() %>/${video.getV_id()}" method="post">
+						<button type="submit">
+							DELETE COMMENT
+						</button>
+					</form>
+				</div>
+				<%
+				}
+				%>
+				<%= comments.get(i).getC_content() %>
+				<% 
+				if(loginedMemberVo != null)
+				{
+				%>
+				<div>
+					<form action="<c:url value="/comment/childconfirm" />/<%=currentComment.getC_id()%>/${video.getV_id()}" method="post">
+						<textarea name="c_content"></textarea>
+						<button type="submit">
+							댓글
+						</button>
+					</form>
+				</div>
+				<% 
+				}
+				%>
+			</div>
+			<div>
+				<% 
+				for(int j = 0; j < currentComment.getComments().size(); ++j)
+				{
+					CommentVo currentChildComment = currentComment.getComments().get(j);
+				%>
+				<div>
+					<div>
+					<%
+					if(loginedMemberVo != null && (loginedMemberVo.getM_id() == currentChildComment.getC_m_id()))
+					{
+					%>
+					<div>
+						<form action="<c:url value="/comment/child/delete" />/<%=currentChildComment.getC_id()%>/${video.getV_id()}" method="post">
+							<button type="submit">
+								DELETE Child COMMENT
+							</button>
+						</form>
+					</div>
+					<%
+					}
+					%>
+					</div>
+					<div>
+						<%= currentChildComment.getC_content() %>
 					</div>
 				</div>
-            </li>
-            <!-- CommentVo의 content 등 각각의 필드에 맞게 출력 -->
-        </c:forEach>
-   	</div>
+				<%
+				}
+				%>
+			</div>
+		<% 
+		}
+		%>
+	</div>
 </body>
 </html>

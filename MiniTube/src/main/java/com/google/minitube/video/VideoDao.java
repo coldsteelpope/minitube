@@ -166,7 +166,7 @@ public class VideoDao
 	public List<VideoVo> SelectSearchVideos(String SearchQuery)
 	{
 		System.out.println("[VideoVo] SelectSearchVideos");
-		String sql = "SELECT * FROM minitube_video WHERE v_title = ?";
+		String sql = "SELECT * FROM minitube_video WHERE v_title LIKE %?% ORDER BY v_id DESC";
 		List<VideoVo> videoVos = new ArrayList<VideoVo>();
 		
 		try

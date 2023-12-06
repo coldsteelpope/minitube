@@ -35,7 +35,26 @@ public class CommentController
 		HttpSession session = request.getSession();
 		MemberVo memberVo = (MemberVo)session.getAttribute("loginedMemberVo");
 		
+		
 		int result = commentService.ChildConfirm(commentVo, memberVo, v_id, c_id);
+		return "redirect:/video/watch/" + Integer.toString(v_id);
+	}
+	
+	@PostMapping("/delete/{idx}/{v_id}")
+	public String DeleteComment(@PathVariable("idx") int idx, @PathVariable("v_id") int v_id)
+	{
+		System.out.println("[CommentController] DeleteComment");
+		
+		int result = commentService.deleteComment(idx);
+		
+		return "redirect:/video/watch/" + Integer.toString(v_id);
+	}
+	
+	@PostMapping("/child/delete/{idx}/{v_id}")
+	public String DeleteChildComment(@PathVariable("idx") int idx, @PathVariable("v_id") int v_id)
+	{
+		System.out.println("[CommentController] DeleteChildComment");
+		int result = commentService.deleteChildComment(idx);
 		return "redirect:/video/watch/" + Integer.toString(v_id);
 	}
 }

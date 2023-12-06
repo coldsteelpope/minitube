@@ -2,6 +2,8 @@ package com.google.minitube.comment;
 
 import java.util.List;
 
+import com.google.minitube.member.MemberVo;
+
 public class CommentVo 
 {
 	int c_id;
@@ -15,6 +17,14 @@ public class CommentVo
 	
 	List<CommentVo> comments;
 	
+	MemberVo c_memberVo;
+	
+	public MemberVo getC_memberVo() {
+		return c_memberVo;
+	}
+	public void setC_memberVo(MemberVo c_memberVo) {
+		this.c_memberVo = c_memberVo;
+	}
 	public List<CommentVo> getComments() {
 		return comments;
 	}

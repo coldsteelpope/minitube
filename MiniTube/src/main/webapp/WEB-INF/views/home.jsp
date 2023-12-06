@@ -15,6 +15,14 @@
 <h1>
 	Hello world!  
 </h1>
+
+<form action=<c:url value="/search" />>
+	<input type="text" name="v_title" placeholder="search" />
+	<button type="submit">
+		Search
+	</button>
+</form>
+
 <% 
 if(loginedMemberVo != null)
 {	

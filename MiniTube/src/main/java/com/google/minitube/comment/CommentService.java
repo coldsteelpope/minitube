@@ -11,6 +11,9 @@ public class CommentService
 	final static public int COMMENT_CREATE_SUCCESS = 1;
 	final static public int COMMENT_CREATE_FAIL = -1;
 	
+	final static public int COMMENT_DELETE_SUCCESS = 1;
+	final static public int COMMENT_DELETE_FAIL = -1;
+	
 	@Autowired
 	CommentDao commentDao;
 	
@@ -45,6 +48,34 @@ public class CommentService
 			return COMMENT_CREATE_FAIL;
 		}
 	}
-
 	
+	public int deleteChildComment(int idx)
+	{
+		int result = commentDao.deleteChildComment(idx);
+		if(result > 0)
+		{
+			System.out.println("[CommentService] Delete Child Comment Success!");
+			return COMMENT_DELETE_SUCCESS;
+		}
+		else
+		{
+			System.out.println("[CommentService] Delete Child Comment Fail!");
+			return COMMENT_DELETE_FAIL;
+		}
+	}
+
+	public int deleteComment(int idx) 
+	{
+		int result = commentDao.deleteComment(idx);
+		if(result > 0)
+		{
+			System.out.println("[CommentService] Delete Comment Success!");
+			return COMMENT_DELETE_SUCCESS;
+		}
+		else
+		{
+			System.out.println("[CommentService] Delete Comment Fail!");
+			return COMMENT_DELETE_FAIL;
+		}
+	}	
 }

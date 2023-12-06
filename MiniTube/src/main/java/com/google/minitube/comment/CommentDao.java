@@ -10,13 +10,18 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
+import com.google.minitube.member.MemberDao;
 import com.google.minitube.member.MemberVo;
+import com.mysql.cj.xdevapi.Result;
 
 @Component
 public class CommentDao 
 {
 	@Autowired
 	JdbcTemplate jdbcTemplate;
+	
+	@Autowired
+	MemberDao memberDao;
 	
 	public int InsertComment(CommentVo commentVo, MemberVo memberVo, int v_id)
 	{
@@ -62,6 +67,8 @@ public class CommentDao
 					commentVo.setC_content(rs.getString("c_content"));
 					commentVo.setC_reg_date(rs.getString("c_reg_date"));
 					commentVo.setC_mod_date(rs.getString("c_mod_date"));
+					
+					commentVo.setC_memberVo(memberDao.SelectMember(commentVo.getC_m_id()));
 					
 					List<CommentVo> childCommentVos = new ArrayList<CommentVo>();
 					String childCommentSql = "SELECT * FROM minitube_comment WHERE c_c_id = ?";
@@ -123,6 +130,58 @@ public class CommentDao
 		{
 			e.printStackTrace();
 		}
+		return result;
+	}
+
+	public int deleteComment(int idx) 
+	{
+		String ChildCommentSelectSql = "SELECT * FROM minitube_comment WHERE c_c_id = ?";
+		List<CommentVo> childCommentVos = new ArrayList<CommentVo>();
+		
+		// Get All Child Comments related to comment
+		try
+		{
+			childCommentVos = jdbcTemplate.query(ChildCommentSelectSql, new RowMapper<CommentVo>() {
+				@Override
+				public CommentVo mapRow(ResultSet rs, int rowNum) throws SQLException
+				{
+					CommentVo commentVo = new CommentVo();
+					commentVo.setC_id(rs.getInt("c_id"));
+					commentVo.setC_v_id(rs.getInt("c_v_id"));
+					commentVo.setC_m_id(rs.getInt("c_m_id"));
+					commentVo.setC_c_id(rs.getInt("c_c_id"));
+					commentVo.setC_content(rs.getString("c_content"));
+					commentVo.setC_reg_date(rs.getString("c_reg_date"));
+					commentVo.setC_mod_date(rs.getString("c_mod_date"));
+					return commentVo;
+				}
+			}, idx);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		// Delete All Child Comments
+		for(int i = 0; i < childCommentVos.size(); ++i)
+		{
+			CommentVo currentChildCommentVo = childCommentVos.get(i);
+			String deleteSql = "DELETE FROM minitube_comment WHERE c_id = ?";
+			jdbcTemplate.update(deleteSql, currentChildCommentVo.getC_id());
+		}
+		
+		// Delete Comments
+		String deleteSql = "DELETE FROM minitube_comment WHERE c_id = ?";
+		int result = jdbcTemplate.update(deleteSql, idx);
+		
+		//return result;
+		return result;
+	}
+
+	public int deleteChildComment(int idx) 
+	{
+		String sql = "DELETE FROM minitube_comment WHERE c_id = ?";
+		int result = jdbcTemplate.update(sql, idx);
 		return result;
 	}
 }

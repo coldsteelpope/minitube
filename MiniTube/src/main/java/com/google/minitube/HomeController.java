@@ -39,10 +39,10 @@ public class HomeController {
 	}
 	
 	@GetMapping("/search")
-	public String Search(@RequestParam(value="s", required = false) String searchQuery, Model model)
+	public String Search(VideoVo videoVo, Model model)
 	{
 		System.out.println("[HomeController] Search");
-		List<VideoVo> videoVos = videoService.GetSearchedVideos(searchQuery);
+		List<VideoVo> videoVos = videoService.GetSearchedVideos(videoVo.getV_title());
 		model.addAttribute("videos", videoVos);
 		return "/search";
 	}
