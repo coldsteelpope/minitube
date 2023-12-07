@@ -87,6 +87,8 @@ public class CommentDao
 								childCommentVo.setC_content(rs2.getString("c_content"));
 								childCommentVo.setC_reg_date(rs2.getString("c_reg_date"));
 								childCommentVo.setC_mod_date(rs2.getString("c_mod_date"));
+								childCommentVo.setC_memberVo(memberDao.SelectMember(childCommentVo.getC_m_id()));
+								
 								
 								return childCommentVo;
 							}
