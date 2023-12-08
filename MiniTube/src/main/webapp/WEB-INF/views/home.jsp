@@ -11,38 +11,62 @@
 %>
 
 <html>
-<head>
+<head lang="en">
 	<title>Home</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+		
 </head>
 <body style="background-color: #0b0c0f;">
 	
-<h1>
-	Hello world!  
-</h1>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark" aria-label="Ninth navbar example">
+	    <div class="container-xl">
+	      <a class="navbar-brand" href="<c:url value="/" />">Container XL</a>
+	      <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample07XL" aria-controls="navbarsExample07XL" aria-expanded="false" aria-label="Toggle navigation">
+	        <span class="navbar-toggler-icon"></span>
+	      </button>
+	
+	      <div class="navbar-collapse collapse" id="navbarsExample07XL" style="">
+	      
+	      	<%
+	      	if(loginedMemberVo != null)
+	      	{
+	      	%>
+	      	<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+	          <li class="nav-item">
+	            <a class="nav-link active" aria-current="page" href="<c:url value="/member/profile" />/<%=loginedMemberVo.getM_id()%>">PROFILE</a>
+	          </li>
+	          <li class="nav-item">
+	            <a class="nav-link" href="<c:url value="/member/uploadVideo" />">UPLOAD</a>
+	          </li>
+	          <li class="nav-item">
+	            <a class="nav-link" href="<c:url value="/auth/signoutConfirm" />">LOGOUT</a>
+	          </li>
+	        </ul>
+	      	<%
+	      	}
+	      	else
+	      	{
+	      	%>
+			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+	          <li class="nav-item">
+	            <a class="nav-link" href="<c:url value="/auth/signin" />">LOGIN</a>
+	          </li>
+	        </ul>
+	        <%
+	      	}
+	        %>
+	        <form role="search" action="<c:url value="/search" />">
+	        	<input class="form-control mt-3" type="search" name="v_title" placeholder="search" aria-label="Search" />
+	        </form>
+	      </div>
+	    </div>
+  	</nav>
 
-<form action=<c:url value="/search" />>
-	<input type="text" name="v_title" placeholder="search" />
-	<button type="submit">
-		Search
-	</button>
-</form>
 
-<% 
-if(loginedMemberVo != null)
-{	
-%>
-	<a href="<c:url value='/auth/signoutConfirm' />">Logout</a>
-<%
-}
-else
-{
-%>
-	<a href="/minitube/auth/signin">Login</a>
-<%
-} 
-%>
-	<section>
+	<section class="mt-4">
 		<div class="container">
 			<div id="carouselExampleIndicators" class="carousel slide">
 			  <div class="carousel-indicators">
@@ -107,6 +131,8 @@ else
 		</div>
 	</section>
 
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+    <!-- Optional JavaScript -->
+	
 </body>
 </html>

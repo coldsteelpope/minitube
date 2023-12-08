@@ -27,8 +27,12 @@ public class MemberController
 	UploadProfileImgService uploadProfileImgService;
 	
 	@GetMapping(value = "/uploadVideo")
-	public String uploadVideo()
+	public String uploadVideo(Model model)
 	{
+		if(model.getAttribute("fail") == null)
+		{
+			model.addAttribute("fail", false);
+		}
 		return "member/create/video";
 	}
 	

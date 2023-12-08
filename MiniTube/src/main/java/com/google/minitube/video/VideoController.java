@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.minitube.comment.CommentVo;
 import com.google.minitube.member.MemberVo;
@@ -67,13 +68,18 @@ public class VideoController
 	}
 	
 	@PostMapping("/uploadVideoConfirm")
-	public String UploadVideoConfirm(VideoVo videoVo, @RequestParam("thumbnailFile") MultipartFile thumbnailFile, @RequestParam("videoFile") MultipartFile videoFile, HttpServletRequest request)
+	public String UploadVideoConfirm(
+			VideoVo videoVo, 
+			@RequestParam("thumbnailFile") MultipartFile thumbnailFile, 
+			@RequestParam("videoFile") MultipartFile videoFile, 
+			HttpServletRequest request,
+			RedirectAttributes redirectAttributes
+	)
 	{
 		System.out.println("[VideoController] UploadVideoConfirm");
 		
-		String nextPage = "member/create/create_video_ok";
-		
-		//CreateDir();
+		String nextPage = null;
+
 		HttpSession session = request.getSession();
 		MemberVo memberVo = (MemberVo)session.getAttribute("loginedMemberVo");
 		
@@ -86,17 +92,19 @@ public class VideoController
 			videoVo.setV_video(savedVideoName);
 			videoVo.setV_m_id(memberVo.getM_id());
 			int result = videoService.uploadVideoConfirm(videoVo);
+			
 			if(result <= 0)
 			{
-				nextPage = "member/create/create_video_ng";
+				nextPage = "member/profile/" + Integer.toString(videoVo.getV_m_id());
 			}
 		}
 		else
 		{
-			nextPage = "member/create/create_video_ng";
+			redirectAttributes.addFlashAttribute("fail", true);
+			nextPage = "member/uploadVideo";
 		}
 		
-		return nextPage;
+		return "redirect:/" + nextPage;
 	}
 	
 	
