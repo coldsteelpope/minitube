@@ -186,4 +186,13 @@ public class CommentDao
 		int result = jdbcTemplate.update(sql, idx);
 		return result;
 	}
+
+	public int editComment(int idx, String c_content) 
+	{
+		System.out.println("[CommentDao] Edit Comment");
+		String sql = "UPDATE minitube_comment SET c_content = ? WHERE c_id = ?";
+		int result = -1;
+		result = jdbcTemplate.update(sql, c_content, idx);
+		return result;
+	}
 }

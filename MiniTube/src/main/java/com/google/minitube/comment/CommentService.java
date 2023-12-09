@@ -14,6 +14,9 @@ public class CommentService
 	final static public int COMMENT_DELETE_SUCCESS = 1;
 	final static public int COMMENT_DELETE_FAIL = -1;
 	
+	final static public int COMMENT_EDIT_SUCCESS = 1;
+	final static public int COMMENT_EDIT_FAIL = -1;
+	
 	@Autowired
 	CommentDao commentDao;
 	
@@ -76,6 +79,21 @@ public class CommentService
 		{
 			System.out.println("[CommentService] Delete Comment Fail!");
 			return COMMENT_DELETE_FAIL;
+		}
+	}
+
+	public int editComment(int idx, String c_content) 
+	{
+		int result = commentDao.editComment(idx, c_content);
+		if(result > 0)
+		{
+			System.out.println("[CommentService] Edit Comment Success");
+			return COMMENT_EDIT_SUCCESS;
+		}
+		else
+		{
+			System.out.println("[CommentService] Edit Comment Fail");
+			return COMMENT_EDIT_FAIL;
 		}
 	}	
 }

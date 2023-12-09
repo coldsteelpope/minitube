@@ -180,10 +180,56 @@
 	      					</p>
 	      					<div class="d-flex justify-content-between align-items-center">
 			                  <div class="d-flex align-items-center">
+			                  	<!--  
 			                    <a href="#!" class="link-muted me-2"><i class="fas fa-thumbs-up me-1"></i>132</a>
 			                    <a href="#!" class="link-muted"><i class="fas fa-thumbs-down me-1"></i>15</a>
+			                    -->
 			                  </div>
-			                  <a href="#!" class="link-muted"><i class="fas fa-reply me-1"></i> Reply</a>
+			                  
+			                  
+			                  <!--  Edit Modal -->
+								<!-- Button trigger modal -->
+								<!-- Modal -->
+								<div class="modal fade" id="exampleModal<%=currentComment.getC_id()%>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+								  <div class="modal-dialog">
+								    <div class="modal-content">
+								      <div class="modal-header">
+								        <h1 class="modal-title fs-5" id="exampleModalLabel"><strong>EDIT COMMENT</strong></h1>
+								        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+								      </div>
+								      <form action="<c:url value="/comment/edit" />/<%=currentComment.getC_id()%>/${video.getV_id()}" method="post">
+									      <div class="modal-body">
+									        <textarea name="c_content" class="form-control"><%=currentComment.getC_content()%></textarea>
+									      </div>
+									      <div class="modal-footer">
+									        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+									        <button type="submit" class="btn btn-primary">Save changes</button>
+									      </div>
+								      </form>
+								    </div>
+								  </div>
+								</div>
+			                  <!-- Edit Modal Done -->
+			                  
+			                  <%
+			                  if(loginedMemberVo != null && currentComment.getC_memberVo().getM_id() == loginedMemberVo.getM_id())
+			                  {
+			                  %>
+			                  <div class="d-flex flex-row">
+				                  <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal<%=currentComment.getC_id()%>">
+									  EDIT
+								  </button>
+				                  
+				                  <form action="<c:url value="/comment/delete" />/<%=currentComment.getC_id()%>/${video.getV_id()}" method="post">
+				                  	<button class="btn btn-sm btn-danger ms-3" type="submit">
+				                  		DELETE
+				                  	</button>
+				                  </form>
+			                  </div>
+			                  <%
+			                  }
+			                  %>
+			                  
 			                </div>
 			                
 			                
@@ -239,11 +285,65 @@
 			                          </p>
 			                        </div>
 			                      </div>
+			                      
+			                      
+			                      
+			                      
+			                      <%
+				                  if(loginedMemberVo != null && childCurrentComment.getC_memberVo().getM_id() == loginedMemberVo.getM_id())
+				                  {
+				                  %>
+				                  
+				                  
+				                  <!--  Edit Modal -->
+									<!-- Button trigger modal -->
+									<!-- Modal -->
+									<div class="modal fade" id="exampleModal<%=childCurrentComment.getC_id()%>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+									  <div class="modal-dialog">
+									    <div class="modal-content">
+									      <div class="modal-header">
+									        <h1 class="modal-title fs-5" id="exampleModalLabel"><strong>EDIT COMMENT</strong></h1>
+									        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+									      </div>
+									      <form action="<c:url value="/comment/edit" />/<%=childCurrentComment.getC_id()%>/${video.getV_id()}" method="post">
+										      <div class="modal-body">
+										        <textarea name="c_content" class="form-control"><%=childCurrentComment.getC_content()%></textarea>
+										      </div>
+										      <div class="modal-footer">
+										        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+										        <button type="submit" class="btn btn-primary">Save changes</button>
+										      </div>
+									      </form>
+									    </div>
+									  </div>
+									</div>
+				                  <!-- Edit Modal Done -->
+				                  
+				                  
+				                  
+				                  <div class="d-flex">
+				                  	  <div>
+					                  	<button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal<%=childCurrentComment.getC_id()%>">EDIT</button>
+					               	  </div>
+					               	  <div>
+						                  <form action="<c:url value="/comment/delete" />/<%=childCurrentComment.getC_id()%>/${video.getV_id()}" method="post">
+						                  	<button class="btn btn-sm btn-danger ms-3" type="submit">
+						                  		DELETE
+						                  	</button>
+						                  </form>
+					                  </div>
+				                  </div>
+				                  <%
+				                  }
+				                  %>
+			                      
 			                    </div>
 			                <%
 			                }
 			                %>
 			                </div>
+			                
+			                
 			                
 	      				</div>
 	      			</div>

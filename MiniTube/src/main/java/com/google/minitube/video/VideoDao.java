@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.google.minitube.member.MemberVo;
 
@@ -288,5 +289,40 @@ public class VideoDao
 			e.printStackTrace();
 		}
 		return videoVos;
+	}
+
+	public int updateVideo(String savedThumbnailName, VideoVo videoVo, int v_id) 
+	{
+		System.out.println("[VideoDao] updateVideo");
+		
+		System.out.println("savedThumbnailName: " + savedThumbnailName);
+		System.out.println("video_title: " + videoVo.getV_title());
+		System.out.println("video_description: " + videoVo.getV_description());
+		
+		
+		int result = -1;
+		String sql = null;
+		if(savedThumbnailName == null)
+		{
+			System.out.println("savedThumbnailName is NULL");
+			sql = "UPDATE minitube_video SET v_title = ?, v_description = ? WHERE v_id = ?";
+			result = jdbcTemplate.update(sql, 
+				videoVo.getV_title(),
+				videoVo.getV_description(),
+				v_id
+			);
+		}
+		else
+		{
+			System.out.println("savedThumbnailName is not NULL");
+			sql = "UPDATE minitube_video SET v_title = ?, v_description = ?, v_thumbnail = ? WHERE v_id = ?";
+			result = jdbcTemplate.update(sql,
+				videoVo.getV_title(),
+				videoVo.getV_description(),
+				savedThumbnailName,
+				v_id
+			);
+		}
+		return result;
 	}
 }

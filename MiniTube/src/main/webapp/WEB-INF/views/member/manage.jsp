@@ -116,10 +116,57 @@
 							<h4 style="color: white"><strong>${videoEle.getV_title()}</strong></h4>
 						</div>
 						<div>
+							<!-- Delete Button -->
 							<div>
 								<form action="<c:url value="/video/delete/${videoEle.getV_id()}/${member.getM_id()}" />" method="post">
 									<button class="btn btn-lg btn-danger w-100" type="submit">Delete</button>
 								</form>
+							</div>
+							<!-- Edit Button -->
+							<div>
+							
+							
+								<!-- Button trigger modal -->
+								<button type="button" class="btn btn-lg btn-success w-100 mt-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop${videoEle.getV_id()}">
+								  EDIT
+								</button>
+								
+								<!-- Modal -->
+								<div class="modal fade" id="staticBackdrop${videoEle.getV_id()}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+								  <div class="modal-dialog">
+								    <div class="modal-content">
+								      <div class="modal-header">
+								        <h1 class="modal-title fs-5" id="staticBackdropLabel">${videoEle.getV_title()}</h1>
+								        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+								      </div>
+									      <form action="<c:url value="/video/edit/" />${videoEle.getV_id()}/${member.getM_id()}" method="post" enctype="multipart/form-data">
+										      <div class="modal-body">
+												<div>
+													<label style="border-left: 5px solid #1ce783;" for="title_label"><strong class="ms-1">TITLE</strong></label>
+													<input required id="title_label" type="text" name="v_title" placeholder="title" class="form-control mt-2" value="${videoEle.getV_title()}" />
+												</div>
+												<div class="mt-2">
+													<label style="border-left: 5px solid #1ce783;" for="description_label"><strong class="ms-1">DESCRIPTION</strong></label>
+													<textarea required id="description_label" name="v_description" placeholder="description" class="form-control mt-2">${videoEle.getV_description()}</textarea>
+												</div>
+												<div class="mt-2">
+													<label style="border-left: 5px solid #1ce783;" for="thumbnail_label"><strong class="ms-1">THUMBNAIL</strong></label>
+													<br />
+													<input id="thumbnail_label" type="file" name="thumbnailFile" class="form-control mt-2"/>
+												</div>
+										      </div>
+										      
+										      <div class="modal-footer">
+										        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CLOSE</button>
+										        
+										        <button type="submit" class="btn btn-primary">EDIT</button>
+										      </div>
+									      </form>
+								    </div>
+								  </div>
+								</div>
+							
+							
 							</div>
 						</div>
 					</div>

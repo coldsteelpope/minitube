@@ -35,18 +35,7 @@ public class MemberController
 		}
 		return "member/create/video";
 	}
-	
-	@GetMapping(value = "/uploadVideoSuccess")
-	public String uploadVideoSuccess()
-	{
-		return "member/create/create_video_ok";
-	}
-	
-	@GetMapping(value = "/uploadVideoFail")
-	public String uploadVideoFial()
-	{
-		return "member/create/create_video_ng";
-	}
+
 	
 	@GetMapping("/manage/{idx}")
 	public String Manage(@PathVariable("idx") int idx, Model model, HttpServletRequest request)

@@ -67,6 +67,14 @@ public class VideoController
 		return "redirect:/member/manage/" + Integer.toString(m_id);
 	}
 	
+	@PostMapping("/edit/{idx}/{m_id}")
+	public String Edit(@PathVariable("idx") int idx, @PathVariable("m_id") int m_id, VideoVo videoVo, @RequestParam("thumbnailFile") MultipartFile thumbnailFile)
+	{
+		System.out.println("[VideoController] Edit");
+		int result = videoService.updateVideo(thumbnailFile, videoVo, idx);
+		return "redirect:/member/manage/" + Integer.toString(m_id);
+	}
+	
 	@PostMapping("/uploadVideoConfirm")
 	public String UploadVideoConfirm(
 			VideoVo videoVo, 
@@ -93,9 +101,14 @@ public class VideoController
 			videoVo.setV_m_id(memberVo.getM_id());
 			int result = videoService.uploadVideoConfirm(videoVo);
 			
-			if(result <= 0)
+			if(result > 0)
 			{
 				nextPage = "member/profile/" + Integer.toString(videoVo.getV_m_id());
+			}
+			else
+			{
+				redirectAttributes.addFlashAttribute("fail", true);
+				nextPage = "member/uploadVideo";
 			}
 		}
 		else

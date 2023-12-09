@@ -5,9 +5,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.google.minitube.comment.CommentDao;
 import com.google.minitube.comment.CommentVo;
+import com.google.minitube.video.util.UploadThumbnailService;
 
 @Service
 public class VideoService 
@@ -18,11 +20,17 @@ public class VideoService
 	final static public int VIDEO_DELETE_SUCCESS = 1;
 	final static public int VIDEO_DELETE_FAIL = -1;
 	
+	final static public int VIDEO_UPDATE_SUCCESS = 1;
+	final static public int VIDEO_UPDATE_FAIL = -1;
+	
 	@Autowired
 	VideoDao videoDao;
 	
 	@Autowired
 	CommentDao commentDao;
+	
+	@Autowired
+	UploadThumbnailService uploadThumbnailService;
 	
 	public int uploadVideoConfirm(VideoVo videoVo) 
 	{
@@ -84,5 +92,29 @@ public class VideoService
 	{
 		List<VideoVo> topVideoVos = videoDao.SelectTopThreeVideos();
 		return topVideoVos;
+	}
+	
+	public int updateVideo(MultipartFile thumbnailFile, VideoVo videoVo, int v_id)
+	{
+		System.out.println("[VideoService] updateVideo");
+		String savedThumbnailName = null;
+		
+		if(thumbnailFile.isEmpty() == false)
+		{
+			savedThumbnailName = uploadThumbnailService.upload(thumbnailFile);	
+		}
+
+		int result = videoDao.updateVideo(savedThumbnailName, videoVo, v_id);
+		
+		if(result > 0)
+		{
+			System.out.println("[VideoService] Update Success!");
+			return VIDEO_UPDATE_SUCCESS;
+		}
+		else
+		{
+			System.out.println("[VideoService] Update Fail!");
+			return VIDEO_UPDATE_FAIL;
+		}
 	}
 }

@@ -57,4 +57,12 @@ public class CommentController
 		int result = commentService.deleteChildComment(idx);
 		return "redirect:/video/watch/" + Integer.toString(v_id);
 	}
+	
+	@PostMapping("/edit/{idx}/{v_id}")
+	public String EditComment(@PathVariable("idx") int idx, @PathVariable("v_id") int v_id, CommentVo commentVo)
+	{
+		System.out.println("[CommentController] EditComment");
+		int result = commentService.editComment(idx, commentVo.getC_content());
+		return "redirect:/video/watch/" + Integer.toString(v_id);
+	}
 }
