@@ -27,7 +27,7 @@ public class VideoDao
 		sql += "(v_title, v_thumbnail, v_description, v_m_id, v_category, v_video, v_reg_date, v_mod_date) ";
 		sql += "VALUES(?, ?, ?, ?, ?, ?, NOW(), NOW())";
 		
-		int result = -1;
+		int result = -1; 
 		try
 		{
 			result = jdbcTemplate.update(sql,

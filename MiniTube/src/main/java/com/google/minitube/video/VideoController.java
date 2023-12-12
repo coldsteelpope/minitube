@@ -20,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.minitube.comment.CommentVo;
 import com.google.minitube.member.MemberVo;
+import com.google.minitube.service.LikeService;
 import com.google.minitube.video.util.UploadThumbnailService;
 import com.google.minitube.video.util.UploadVideoService;
 
@@ -36,18 +37,34 @@ public class VideoController
 	@Autowired
 	UploadVideoService uploadVideoService;
 	
+	@Autowired
+	LikeService likeService;
+	
 	@GetMapping("/watch/{idx}")
-	public String Watch(@PathVariable("idx") int idx, Model model)
+	public String Watch(@PathVariable("idx") int idx, Model model, HttpServletRequest request)
 	{
 		VideoVo relatedVideo = videoService.GetRelatedVideo(idx);
 		List<CommentVo> relatedComments = videoService.GetRelatedVideoComments(idx);
-		
-		
 		
 		if(relatedVideo != null)
 		{
 			model.addAttribute("video", relatedVideo);
 			model.addAttribute("comments", relatedComments);
+			
+			HttpSession session = request.getSession();
+			MemberVo memberVo = (MemberVo)session.getAttribute("loginedMemberVo");
+			
+			if(memberVo == null)
+			{
+				model.addAttribute("like", false);
+				model.addAttribute("login", false);
+			}
+			else
+			{
+				boolean isLikeUser = likeService.isVideoLikedByUser(idx, memberVo.getM_id());
+				model.addAttribute("like", isLikeUser);
+				model.addAttribute("login", true);
+			}
 			return "video/watch";
 		}
 		else

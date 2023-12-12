@@ -8,8 +8,6 @@
 
 <% 
 	MemberVo loginedMemberVo = (MemberVo)session.getAttribute("loginedMemberVo");
-
-
 %>
 <!DOCTYPE html>
 <html>
@@ -26,7 +24,6 @@
 	      <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample07XL" aria-controls="navbarsExample07XL" aria-expanded="false" aria-label="Toggle navigation">
 	        <span class="navbar-toggler-icon"></span>
 	      </button>
-	
 	      <div class="navbar-collapse collapse" id="navbarsExample07XL" style="">
 	      
 	      	<%
@@ -63,6 +60,9 @@
 	      </div>
 	    </div>
   	</nav>
+  	
+
+  	
 	<section class="mt-4">
 		<div class="container">
 			<video 
@@ -114,8 +114,35 @@
 		</div>
 	</section>
 
-	
-	<section class="mt-5 container">
+
+
+	<section class="container mt-3">
+		<c:choose>
+			<c:when test="${like eq true}">
+				<form action="<c:url value="/like/delete/video/${video.v_id}" />" method="POST">
+					<input type="hidden" name="_method" value="DELETE"/>
+					<button type="submit" class="btn btn-danger">좋아요 취소</button>
+				</form>
+			</c:when>
+			<c:when test="${like eq false}">
+				<c:choose>
+					<c:when test="${login eq true}">
+						<form action="<c:url value="/like/video/${video.v_id}" />" method="post">
+							<button type="submit" class="btn btn-outline-danger">좋아요 로그인</button>
+						</form>
+					</c:when>
+				 	<c:when test="${login eq false}">
+						<a href="<c:url value="/auth/signin" />" class="btn btn-outline-danger">
+							좋아요
+						</a>
+					</c:when>
+				</c:choose>
+			</c:when>
+		</c:choose>
+	</section>
+
+
+	<section class="mt-3 container">
 		<div>
 			<h4 style="color:white;"><span class="me-2" style="border-left: 5px solid #1ce783;"></span><strong>COMMENTS</strong></h4>
 		</div>
@@ -148,6 +175,11 @@
 		}
 		%>
 		
+
+		
+	</section>
+	
+	
 	<!-- Comment -->
 	<section>
 	  <div class="container my-5 py-2 text-dark">
