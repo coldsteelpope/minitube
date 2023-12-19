@@ -20,14 +20,12 @@ import com.google.minitube.video.VideoVo;
 
 
 @Controller
-public class HomeController {
-	
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-	
+public class HomeController 
+{
 	@Autowired
 	VideoService videoService;
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@GetMapping(value = "/")
 	public String home(Locale locale, Model model) {
 		System.out.println("[HomeController] home");
 		

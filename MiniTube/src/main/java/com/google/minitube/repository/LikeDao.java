@@ -1,4 +1,4 @@
-package com.google.minitube.dao;
+package com.google.minitube.repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

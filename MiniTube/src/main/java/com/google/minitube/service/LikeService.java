@@ -3,8 +3,8 @@ package com.google.minitube.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.google.minitube.dao.LikeDao;
 import com.google.minitube.dto.LikeDto;
+import com.google.minitube.repository.LikeDao;
 
 @Service
 public class LikeService 
