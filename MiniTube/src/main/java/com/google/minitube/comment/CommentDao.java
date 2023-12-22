@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 
 import com.google.minitube.dto.Member;
 import com.google.minitube.repository.MemberRepository;
-import com.mysql.cj.xdevapi.Result;
 
 @Component
 public class CommentDao 
