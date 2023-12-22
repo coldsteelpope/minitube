@@ -11,7 +11,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.google.minitube.member.MemberVo;
+import com.google.minitube.dto.Member;
 
 @Component
 public class VideoDao 
@@ -69,15 +69,15 @@ public class VideoDao
 					videoVo.setV_mod_date(rs.getString("v_mod_date"));
 					
 					String memberSql = "SELECT * FROM minitube_member WHERE m_id = ?";
-					List<MemberVo> memberVos = new ArrayList<MemberVo>();
+					List<Member> memberVos = new ArrayList<Member>();
 					
 					try
 					{
-						memberVos = jdbcTemplate.query(memberSql, new RowMapper<MemberVo>() {
+						memberVos = jdbcTemplate.query(memberSql, new RowMapper<Member>() {
 							@Override
-							public MemberVo mapRow(ResultSet m_rs, int m_rowNum) throws SQLException
+							public Member mapRow(ResultSet m_rs, int m_rowNum) throws SQLException
 							{
-								MemberVo memberVo = new MemberVo();
+								Member memberVo = new Member();
 								memberVo.setM_id(m_rs.getInt("m_id"));
 								memberVo.setM_firstname(m_rs.getString("m_firstname"));
 								memberVo.setM_lastname(m_rs.getString("m_lastname"));
@@ -128,15 +128,15 @@ public class VideoDao
 					videoVo.setV_mod_date(rs.getString("v_mod_date"));
 					
 					String memberSql = "SELECT * FROM minitube_member WHERE m_id = ?";
-					List<MemberVo> memberVos = new ArrayList<MemberVo>();
+					List<Member> memberVos = new ArrayList<Member>();
 					
 					try
 					{
-						memberVos = jdbcTemplate.query(memberSql, new RowMapper<MemberVo>() {
+						memberVos = jdbcTemplate.query(memberSql, new RowMapper<Member>() {
 							@Override
-							public MemberVo mapRow(ResultSet m_rs, int m_rowNum) throws SQLException
+							public Member mapRow(ResultSet m_rs, int m_rowNum) throws SQLException
 							{
-								MemberVo memberVo = new MemberVo();
+								Member memberVo = new Member();
 								memberVo.setM_id(m_rs.getInt("m_id"));
 								memberVo.setM_firstname(m_rs.getString("m_firstname"));
 								memberVo.setM_lastname(m_rs.getString("m_lastname"));
@@ -151,7 +151,7 @@ public class VideoDao
 					{
 						e.printStackTrace();
 					}
-					videoVo.setV_member(memberVos.get(0));
+					videoVo.setV_member(memberVos.get(0));;
 					return videoVo;
 				}
 			});
@@ -188,15 +188,15 @@ public class VideoDao
 					videoVo.setV_mod_date(rs.getString("v_mod_date"));
 					
 					String memberSql = "SELECT * FROM minitube_member WHERE m_id = ?";
-					List<MemberVo> memberVos = new ArrayList<MemberVo>();
+					List<Member> memberVos = new ArrayList<Member>();
 					
 					try
 					{
-						memberVos = jdbcTemplate.query(memberSql, new RowMapper<MemberVo>() {
+						memberVos = jdbcTemplate.query(memberSql, new RowMapper<Member>() {
 							@Override
-							public MemberVo mapRow(ResultSet m_rs, int m_rowNum) throws SQLException
+							public Member mapRow(ResultSet m_rs, int m_rowNum) throws SQLException
 							{
-								MemberVo memberVo = new MemberVo();
+								Member memberVo = new Member();
 								memberVo.setM_id(m_rs.getInt("m_id"));
 								memberVo.setM_firstname(m_rs.getString("m_firstname"));
 								memberVo.setM_lastname(m_rs.getString("m_lastname"));
@@ -256,15 +256,15 @@ public class VideoDao
 					videoVo.setV_mod_date(rs.getString("v_mod_date"));
 					
 					String memberSql = "SELECT * FROM minitube_member WHERE m_id = ?";
-					List<MemberVo> memberVos = new ArrayList<MemberVo>();
+					List<Member> memberVos = new ArrayList<Member>();
 					
 					try
 					{
-						memberVos = jdbcTemplate.query(memberSql, new RowMapper<MemberVo>() {
+						memberVos = jdbcTemplate.query(memberSql, new RowMapper<Member>() {
 							@Override
-							public MemberVo mapRow(ResultSet m_rs, int m_rowNum) throws SQLException
+							public Member mapRow(ResultSet m_rs, int m_rowNum) throws SQLException
 							{
-								MemberVo memberVo = new MemberVo();
+								Member memberVo = new Member();
 								memberVo.setM_id(m_rs.getInt("m_id"));
 								memberVo.setM_firstname(m_rs.getString("m_firstname"));
 								memberVo.setM_lastname(m_rs.getString("m_lastname"));

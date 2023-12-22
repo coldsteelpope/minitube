@@ -1,8 +1,6 @@
-package com.google.minitube.video;
+package com.google.minitube.dto;
 
-import com.google.minitube.dto.Member;
-
-public class VideoVo 
+public class Video 
 {
 	int v_id;
 	int v_m_id;
@@ -15,14 +13,11 @@ public class VideoVo
 	String v_video;
 	String v_reg_date;
 	String v_mod_date;
-	
-	Member v_member;
-
-	public Member getV_member() {
-		return v_member;
+	public int getV_id() {
+		return v_id;
 	}
-	public void setV_member(Member v_member) {
-		this.v_member = v_member;
+	public void setV_id(int v_id) {
+		this.v_id = v_id;
 	}
 	public int getV_m_id() {
 		return v_m_id;
@@ -30,20 +25,8 @@ public class VideoVo
 	public void setV_m_id(int v_m_id) {
 		this.v_m_id = v_m_id;
 	}
-	public int getV_id() {
-		return v_id;
-	}
-	public void setV_id(int v_id) {
-		this.v_id = v_id;
-	}
 	public String getV_title() {
 		return v_title;
-	}
-	public String getV_video() {
-		return v_video;
-	}
-	public void setV_video(String v_video) {
-		this.v_video = v_video;
 	}
 	public void setV_title(String v_title) {
 		this.v_title = v_title;
@@ -66,6 +49,12 @@ public class VideoVo
 	public void setV_category(String v_category) {
 		this.v_category = v_category;
 	}
+	public String getV_video() {
+		return v_video;
+	}
+	public void setV_video(String v_video) {
+		this.v_video = v_video;
+	}
 	public String getV_reg_date() {
 		return v_reg_date;
 	}
@@ -78,6 +67,4 @@ public class VideoVo
 	public void setV_mod_date(String v_mod_date) {
 		this.v_mod_date = v_mod_date;
 	}
-
-	
 }

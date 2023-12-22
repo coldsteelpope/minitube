@@ -10,8 +10,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
-import com.google.minitube.member.MemberDao;
-import com.google.minitube.member.MemberVo;
+import com.google.minitube.dto.Member;
+import com.google.minitube.repository.MemberRepository;
 import com.mysql.cj.xdevapi.Result;
 
 @Component
@@ -21,9 +21,9 @@ public class CommentDao
 	JdbcTemplate jdbcTemplate;
 	
 	@Autowired
-	MemberDao memberDao;
+	MemberRepository memberRepository;
 	
-	public int InsertComment(CommentVo commentVo, MemberVo memberVo, int v_id)
+	public int InsertComment(CommentVo commentVo, Member memberVo, int v_id)
 	{
 		System.out.println("[InsertComment] InsertComment(commentVo)");
 		
@@ -68,7 +68,7 @@ public class CommentDao
 					commentVo.setC_reg_date(rs.getString("c_reg_date"));
 					commentVo.setC_mod_date(rs.getString("c_mod_date"));
 					
-					commentVo.setC_memberVo(memberDao.SelectMember(commentVo.getC_m_id()));
+					commentVo.setC_memberVo(memberRepository.findById(commentVo.getC_m_id()));
 					
 					List<CommentVo> childCommentVos = new ArrayList<CommentVo>();
 					String childCommentSql = "SELECT * FROM minitube_comment WHERE c_c_id = ?";
@@ -87,7 +87,7 @@ public class CommentDao
 								childCommentVo.setC_content(rs2.getString("c_content"));
 								childCommentVo.setC_reg_date(rs2.getString("c_reg_date"));
 								childCommentVo.setC_mod_date(rs2.getString("c_mod_date"));
-								childCommentVo.setC_memberVo(memberDao.SelectMember(childCommentVo.getC_m_id()));
+								childCommentVo.setC_memberVo(memberRepository.findById(childCommentVo.getC_m_id()));
 								
 								
 								return childCommentVo;
@@ -112,7 +112,7 @@ public class CommentDao
 		return commentVos;
 	}
 
-	public int InsertChildComment(CommentVo commentVo, MemberVo memberVo, int v_id, int c_id) 
+	public int InsertChildComment(CommentVo commentVo, Member memberVo, int v_id, int c_id) 
 	{
 		System.out.println("[CommentDao] InsertChildComment");
 		String sql = "INSERT INTO minitube_comment ";

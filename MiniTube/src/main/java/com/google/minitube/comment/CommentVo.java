@@ -2,7 +2,7 @@ package com.google.minitube.comment;
 
 import java.util.List;
 
-import com.google.minitube.member.MemberVo;
+import com.google.minitube.dto.Member;
 
 public class CommentVo 
 {
@@ -17,12 +17,12 @@ public class CommentVo
 	
 	List<CommentVo> comments;
 	
-	MemberVo c_memberVo;
+	Member c_memberVo;
 	
-	public MemberVo getC_memberVo() {
+	public Member getC_memberVo() {
 		return c_memberVo;
 	}
-	public void setC_memberVo(MemberVo c_memberVo) {
+	public void setC_memberVo(Member c_memberVo) {
 		this.c_memberVo = c_memberVo;
 	}
 	public List<CommentVo> getComments() {

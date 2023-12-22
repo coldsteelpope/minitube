@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.google.minitube.member.MemberVo;
+import com.google.minitube.dto.Member;
 
 @Controller
 @RequestMapping("/comment")
@@ -23,7 +23,7 @@ public class CommentController
 	{
 		System.out.println("[CommentController] Confirm(commentVo, v_id)");
 		HttpSession session = request.getSession();
-		MemberVo memberVo = (MemberVo)session.getAttribute("loginedMemberVo");
+		Member memberVo = (Member)session.getAttribute("loginedMemberVo");
 		int result = commentService.confirm(commentVo, memberVo, v_id);
 		return "redirect:/video/watch/" + Integer.toString(v_id);
 	}
@@ -33,7 +33,7 @@ public class CommentController
 	{
 		System.out.println("[CommentController] ChildConfirm(commentVo, c_id, request)");
 		HttpSession session = request.getSession();
-		MemberVo memberVo = (MemberVo)session.getAttribute("loginedMemberVo");
+		Member memberVo = (Member)session.getAttribute("loginedMemberVo");
 		
 		
 		int result = commentService.ChildConfirm(commentVo, memberVo, v_id, c_id);

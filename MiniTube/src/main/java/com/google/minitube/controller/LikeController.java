@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.google.minitube.member.MemberVo;
+import com.google.minitube.dto.Member;
 import com.google.minitube.service.LikeService;
 
 @Controller
@@ -25,7 +25,7 @@ public class LikeController
 	{
 		System.out.println("[LikeController] Like");
 		HttpSession session = request.getSession();
-		MemberVo memberVo = (MemberVo)session.getAttribute("loginedMemberVo");
+		Member memberVo = (Member)session.getAttribute("loginedMemberVo");
 		likeService.insert(v_id, memberVo.getM_id());
 		return "redirect:/video/watch/" + Integer.toString(v_id);
 	}
@@ -35,7 +35,7 @@ public class LikeController
 	{
 		System.out.println("[DislikeController] Dislike");
 		HttpSession session = request.getSession();
-		MemberVo memberVo = (MemberVo)session.getAttribute("loginedMemberVo");
+		Member memberVo = (Member)session.getAttribute("loginedMemberVo");
 		
 		likeService.delete(v_id, memberVo.getM_id());
 		return "redirect:/video/watch/" + Integer.toString(v_id);

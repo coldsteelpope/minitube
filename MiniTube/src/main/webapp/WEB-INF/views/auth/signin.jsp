@@ -1,17 +1,19 @@
-<%@page import="com.google.minitube.member.MemberVo"%>
+<%@page import="com.google.minitube.dto.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <%
-	MemberVo loginedMemberVo = (MemberVo)session.getAttribute("loginedMemberVo");
+	Member loginedMemberVo = (Member)session.getAttribute("loginedMember");
 	if(loginedMemberVo != null)
 	{
 		response.sendRedirect("/minitube");
 	}
+	
+	System.out.println(request.getAttribute("fail"));
  %>
  
- <% boolean signUpFail = (boolean)request.getAttribute("fail"); %>
+ <% //boolean signUpFail = (boolean)request.getAttribute("fail"); %>
  
 
 <!DOCTYPE html>
@@ -61,6 +63,8 @@
 	        <%
 	      	}
 	        %>
+	        
+	        
 	        <form role="search" action="<c:url value="/search" />">
 	        	<input class="form-control" type="search" name="v_title" placeholder="search" aria-label="Search" />
 	        </form>
@@ -91,7 +95,7 @@
 	          <div class="card">
 	            <div class="card-body py-5 px-md-5">
 	            	<%
-		          	if(signUpFail)
+		          	if(false)
 		          	{
 					%>
 					<div class="alert alert-danger alert-dismissible fade show" role="alert">

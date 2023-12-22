@@ -3,7 +3,7 @@ package com.google.minitube.comment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.google.minitube.member.MemberVo;
+import com.google.minitube.dto.Member;
 
 @Service
 public class CommentService 
@@ -20,7 +20,7 @@ public class CommentService
 	@Autowired
 	CommentDao commentDao;
 	
-	public int confirm(CommentVo commentVo, MemberVo memberVo, int v_id)
+	public int confirm(CommentVo commentVo, Member memberVo, int v_id)
 	{
 		System.out.println("[CommentService] Confirm");
 		int result = commentDao.InsertComment(commentVo, memberVo, v_id);
@@ -36,7 +36,7 @@ public class CommentService
 		}
 	}
 
-	public int ChildConfirm(CommentVo commentVo, MemberVo memberVo, int v_id, int c_id) 
+	public int ChildConfirm(CommentVo commentVo, Member memberVo, int v_id, int c_id) 
 	{
 		System.out.println("[CommentService] ChildConfirm");
 		int result = commentDao.InsertChildComment(commentVo, memberVo, v_id, c_id);

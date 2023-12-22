@@ -13,19 +13,19 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.minitube.constants.AuthConstants;
 import com.google.minitube.dto.Member;
-import com.google.minitube.service.AuthService;
+import com.google.minitube.service.MemberService;
 
 @Controller
 @RequestMapping("/auth")
 public class AuthController 
 {
 
-	private final AuthService authService;
+	private final MemberService memberService;
 	
 	@Autowired
-	public AuthController(AuthService authService)
+	public AuthController(MemberService memberService)
 	{
-		this.authService = authService;
+		this.memberService = memberService;
 	}
 	
 	@GetMapping("/signup")
@@ -54,7 +54,7 @@ public class AuthController
 	@GetMapping("/signin")
 	public String Signin(Model model, HttpServletRequest request)
 	{
-		System.out.println("[AuthController] authController");
+		System.out.println("[AuthController] Signin");
 		
 		HttpSession session = request.getSession();
 		Member member = (Member)session.getAttribute(AuthConstants.SessionName);
@@ -74,11 +74,13 @@ public class AuthController
 	}
 	
 	@GetMapping("/signoutConfirm")
-	public String SignoutConfirm(HttpSession session)
+	public String SignoutConfirm(HttpSession session, Model model)
 	{
 		System.out.println("[AuthController] SignoutConfirm");
+		
 		session.invalidate();
-		return "/auth/signin";
+		
+		return "redirect:/auth/signin";
 	}
 	
 	
@@ -86,8 +88,9 @@ public class AuthController
 	public String SigninConfirm(Member member, HttpSession session, RedirectAttributes redirectAttributes)
 	{
 		System.out.println("[AuthController] SigninConfirm");
-		Member findMember = authService.find(member);
-		if(findMember == null)
+		long result = memberService.login(member.getM_mail(), member.getM_pw());
+		
+		if(result == 0)
 		{
 			redirectAttributes.addFlashAttribute("fail", true);
 			return "auth/signin";
@@ -104,17 +107,15 @@ public class AuthController
 	public String SignupConfirm(Member member, Model model, RedirectAttributes redirectAttributes)
 	{
 		System.out.println("[AuthController] SignupConfirm");
-		Member savedMember = authService.save(member);
-		if(savedMember == null)
+		long result = memberService.save(member);
+		if(result == 0)
 		{
 			redirectAttributes.addFlashAttribute("fail", true);
 			return "auth/signup";
 		}
 		else
 		{
-			return "redirect:/";
+			return "redirect:/auth/signin";
 		}
 	}
-	
-	
 }

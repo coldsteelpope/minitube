@@ -19,7 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.minitube.comment.CommentVo;
-import com.google.minitube.member.MemberVo;
+import com.google.minitube.dto.Member;
 import com.google.minitube.service.LikeService;
 import com.google.minitube.video.util.UploadThumbnailService;
 import com.google.minitube.video.util.UploadVideoService;
@@ -52,7 +52,7 @@ public class VideoController
 			model.addAttribute("comments", relatedComments);
 			
 			HttpSession session = request.getSession();
-			MemberVo memberVo = (MemberVo)session.getAttribute("loginedMemberVo");
+			Member memberVo = (Member)session.getAttribute("loginedMemberVo");
 			
 			if(memberVo == null)
 			{
@@ -106,7 +106,7 @@ public class VideoController
 		String nextPage = null;
 
 		HttpSession session = request.getSession();
-		MemberVo memberVo = (MemberVo)session.getAttribute("loginedMemberVo");
+		Member memberVo = (Member)session.getAttribute("loginedMemberVo");
 		
 		String savedThumbnailName = uploadThumbnailService.upload(thumbnailFile);
 		String savedVideoName = uploadVideoService.upload(videoFile);

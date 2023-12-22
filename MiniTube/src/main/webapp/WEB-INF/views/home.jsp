@@ -1,11 +1,11 @@
+<%@page import="com.google.minitube.dto.Member"%>
 <%@page import="com.google.minitube.video.VideoVo"%>
 <%@page import="java.util.List"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<%@ page import="com.google.minitube.member.MemberVo"%>
 
 <%
-	MemberVo loginedMemberVo = (MemberVo) session.getAttribute("loginedMemberVo");
+	Member loginedMemberVo = (Member) session.getAttribute("loginedMember");
 	List<VideoVo> topVideoVos = (List<VideoVo>)request.getAttribute("topVideos");
 	int topVideoVosNum = topVideoVos.size();
 %>
