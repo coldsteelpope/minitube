@@ -221,8 +221,6 @@ public class VideoDao
 			e.printStackTrace();
 		}
 		
-		
-		
 		return videoVos;
 	}
 

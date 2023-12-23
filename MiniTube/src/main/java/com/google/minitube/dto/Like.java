@@ -1,6 +1,6 @@
 package com.google.minitube.dto;
 
-public class LikeDto 
+public class Like 
 {
 	private long l_id;
 	private int m_id;

@@ -45,17 +45,36 @@ public class JdbcVideoRepository implements VideoRepository
 	}
 
 	@Override
-	public long update(MultipartFile thumbnailFile, Video video) 
+	public long update(Video video, int v_id) 
 	{
-		// TODO Auto-generated method stub
-		return 0;
+		System.out.println("[JdbcVideoRepository] update");
+		if(video.getV_thumbnail() == null)
+		{
+			System.out.println("savedThumbnailName IS NULL");
+			return jdbcTemplate.update(VideoSql.UPDATE_VIDEO_EXCEPT_THUMBNAIL, 
+				video.getV_title(),
+				video.getV_description(),
+				v_id
+			);
+		}
+		else
+		{
+			System.out.println("savedThumbnailName IS NOT NULL");
+			return jdbcTemplate.update(VideoSql.UPDATE_VIDEO,
+				video.getV_title(),
+				video.getV_description(),
+				video.getV_thumbnail(),
+				v_id
+			);
+		}
 	}
 
 	@Override
 	public long deleteById(int v_id) 
 	{
-		// TODO Auto-generated method stub
-		return 0;
+		System.out.println("[JdbcVideoRepository] deleteById");
+		long result = jdbcTemplate.update(VideoSql.DELETE_VIDEO_BY_ID, v_id);
+		return result;
 	}
 
 	@Override
@@ -70,6 +89,25 @@ public class JdbcVideoRepository implements VideoRepository
 	{
 		System.out.println("[JdbcVideoRepository] findAll");
 		List<Video> videos = jdbcTemplate.query(VideoSql.SELECT_ALL_VIDEOS, videoRowMapper());
+		return videos;
+	}
+	
+	@Override
+	public List<Video> findVideosByTitle(String v_title) 
+	{
+		System.out.println("[JdbcVideoRepository] findVideosByTitle");
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("v_title", v_title);
+		
+		List<Video> videos = jdbcTemplate.query(VideoSql.SELECT_VIDEOS_BY_TITLE, videoRowMapper(), params.get("v_title"));
+		return videos;
+	}
+
+	@Override
+	public List<Video> findTopThreeVideos() 
+	{
+		System.out.println("[JdbcVideoRepository] findTopThreeVideos");
+		List<Video> videos = jdbcTemplate.query(VideoSql.SELECT_TOP_THREE_VIDEOS, videoRowMapper());
 		return videos;
 	}
 	
@@ -89,4 +127,6 @@ public class JdbcVideoRepository implements VideoRepository
 			return video;
 		};
 	}
+
+
 }

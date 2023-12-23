@@ -133,7 +133,7 @@ public class VideoController
 			redirectAttributes.addFlashAttribute("fail", true);
 			nextPage = "member/uploadVideo";
 		}
-		
+	
 		return "redirect:/" + nextPage;
 	}
 	

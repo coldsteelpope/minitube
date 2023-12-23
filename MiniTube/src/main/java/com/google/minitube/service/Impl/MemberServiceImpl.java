@@ -8,6 +8,7 @@ import com.google.minitube.dto.Member;
 import com.google.minitube.repository.MemberRepository;
 import com.google.minitube.service.MemberService;
 import com.google.minitube.util.ProfileImageUtil;
+import com.google.minitube.util.Impl.LocalProfileImageUtilImpl;
 
 @Service
 public class MemberServiceImpl implements MemberService

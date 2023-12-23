@@ -10,7 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
-import com.google.minitube.dto.LikeDto;
+import com.google.minitube.dto.Like;
 
 @Component
 public class LikeDao 
@@ -18,19 +18,19 @@ public class LikeDao
 	@Autowired
 	JdbcTemplate jdbcTemplate;
 
-	public LikeDto select(int v_id, int m_id) 
+	public Like select(int v_id, int m_id) 
 	{
 		System.out.println("[LikeDao] select");
 		String sql = "SELECT * FROM minitube_like WHERE v_id = ? AND m_id = ?";
-		List<LikeDto> likeDtos = new ArrayList<LikeDto>();
+		List<Like> likeDtos = new ArrayList<Like>();
 		
 		try
 		{
-			likeDtos = jdbcTemplate.query(sql, new RowMapper<LikeDto>() {
+			likeDtos = jdbcTemplate.query(sql, new RowMapper<Like>() {
 				@Override
-				public LikeDto mapRow(ResultSet rs, int rowNum) throws SQLException
+				public Like mapRow(ResultSet rs, int rowNum) throws SQLException
 				{
-					LikeDto likeDto = new LikeDto();
+					Like likeDto = new Like();
 					likeDto.setL_id(rs.getInt("l_id"));
 					likeDto.setV_id(rs.getInt("v_id"));
 					likeDto.setM_id(rs.getInt("m_id"));

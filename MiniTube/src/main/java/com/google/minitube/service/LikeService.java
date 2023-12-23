@@ -3,7 +3,7 @@ package com.google.minitube.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.google.minitube.dto.LikeDto;
+import com.google.minitube.dto.Like;
 import com.google.minitube.repository.LikeDao;
 
 @Service
@@ -15,7 +15,7 @@ public class LikeService
 	public boolean isVideoLikedByUser(int v_id, int m_id)
 	{
 		System.out.println("[LikeService] isVideoLikedByUser");
-		LikeDto likeDto = likeDao.select(v_id, m_id);
+		Like likeDto = likeDao.select(v_id, m_id);
 		
 		if(likeDto == null)
 		{
@@ -30,7 +30,7 @@ public class LikeService
 	public void insert(int v_id, int m_id) 
 	{
 		System.out.println("[LikeService] insert");
-		LikeDto likeDto = likeDao.select(v_id, m_id);
+		Like likeDto = likeDao.select(v_id, m_id);
 		if(likeDto == null)
 		{
 			likeDao.insert(v_id, m_id);
@@ -45,7 +45,7 @@ public class LikeService
 	public void delete(int v_id, int m_id) 
 	{
 		System.out.println("[LikeService] delete");
-		LikeDto likeDto = likeDao.select(v_id, m_id);
+		Like likeDto = likeDao.select(v_id, m_id);
 		if(likeDto == null)
 		{
 			System.out.println("좋아요를 하지 않음");
