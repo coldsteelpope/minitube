@@ -97,9 +97,12 @@ public class JdbcVideoRepository implements VideoRepository
 	{
 		System.out.println("[JdbcVideoRepository] findVideosByTitle");
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("v_title", v_title);
+		params.put("v_title", "%" + v_title + "%");
 		
 		List<Video> videos = jdbcTemplate.query(VideoSql.SELECT_VIDEOS_BY_TITLE, videoRowMapper(), params.get("v_title"));
+		
+		System.out.println(videos.toString());
+		
 		return videos;
 	}
 
