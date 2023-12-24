@@ -1,49 +1,48 @@
 package com.google.minitube;
 
-import java.text.DateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import com.google.minitube.video.VideoService;
-import com.google.minitube.video.VideoVo;
+import com.google.minitube.dto.Video;
+import com.google.minitube.service.VideoService;
+
 
 
 @Controller
 public class HomeController 
 {
+	private VideoService videoService;
+	
 	@Autowired
-	VideoService videoService;
+	public HomeController(VideoService videoService)
+	{
+		this.videoService = videoService;
+	}
 
 	@GetMapping(value = "/")
-	public String home(Locale locale, Model model) {
+	public String home(Locale locale, Model model) 
+	{
 		System.out.println("[HomeController] home");
 		
-		List<VideoVo> videoVos = videoService.GetAllVideos();
+		List<Video> videos = videoService.findAll();
+		List<Video> topVideos = videoService.findTopThree();
 		
-		List<VideoVo> topVideoVos = videoService.GetTopThreeVideos();
-		
-		model.addAttribute("videos", videoVos);
-		model.addAttribute("topVideos", topVideoVos);
+		model.addAttribute("videos", videos);
+		model.addAttribute("topVideos", topVideos);
 		
 		return "home";
 	}
 	
 	@GetMapping("/search")
-	public String Search(VideoVo videoVo, Model model)
+	public String Search(Video videoVo, Model model)
 	{
 		System.out.println("[HomeController] Search");
-		List<VideoVo> videoVos = videoService.GetSearchedVideos(videoVo.getV_title());
+		List<Video> videoVos = videoService.search(videoVo.getV_title());
 		model.addAttribute("videos", videoVos);
 		return "/search";
 	}

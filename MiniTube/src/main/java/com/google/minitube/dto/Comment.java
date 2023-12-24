@@ -2,8 +2,6 @@ package com.google.minitube.dto;
 
 import java.util.List;
 
-import com.google.minitube.comment.CommentVo;
-
 public class Comment 
 {
 	int c_id;
@@ -16,7 +14,7 @@ public class Comment
 	String c_mod_date;
 	
 	Member c_member;
-	List<CommentVo> comments;
+	List<Comment> comments;
 	
 	public int getC_id() {
 		return c_id;
@@ -66,10 +64,10 @@ public class Comment
 	public void setC_member(Member c_member) {
 		this.c_member = c_member;
 	}
-	public List<CommentVo> getComments() {
+	public List<Comment> getComments() {
 		return comments;
 	}
-	public void setComments(List<CommentVo> comments) {
+	public void setComments(List<Comment> comments) {
 		this.comments = comments;
 	}
 }

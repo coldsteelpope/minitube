@@ -101,9 +101,5 @@ public class VideoController
 				return "redirect:/member/upload/video";
 			}
 		}
-		
-
-		
-		return "redirect:/";
 	}
 }

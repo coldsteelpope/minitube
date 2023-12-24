@@ -4,11 +4,15 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 
+import com.google.minitube.constants.CommentSql;
 import com.google.minitube.dto.Comment;
 import com.google.minitube.dto.Member;
 import com.google.minitube.repository.CommentRepository;
 
+@Repository
 public class JdbcCommentRepository implements CommentRepository 
 {
 	@Autowired
@@ -17,32 +21,118 @@ public class JdbcCommentRepository implements CommentRepository
 	@Override
 	public long save(Comment comment, Member member) 
 	{
+		System.out.println("[JdbcCommentRepository] save");
+		try
+		{
+			int result = jdbcTemplate.update(CommentSql.INSERT_COMMENT,
+					member.getM_id(),
+					comment.getC_v_id(),
+					comment.getC_content()
+			);
+			return result;
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			return 0;
+		}
+	}
+
+	@Override
+	public long saveChild(Comment comment, Member member) 
+	{
+		System.out.println("[JdbcCommentRepository] saveChild");
+		try
+		{
+			int result = jdbcTemplate.update(CommentSql.INSERT_CHILD_COMMENT, 
+					comment.getC_v_id(),
+					member.getM_id(),
+					comment.getC_c_id(),
+					comment.getC_content()
+			);
+			return result;
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			return 0;
+		}
+	}
+
+	@Override
+	public long delete(int c_id) 
+	{
+		System.out.println("[JdbcCommentRepository] delete");
 		
-		return 0;
+		try
+		{
+			List<Comment> childComments = jdbcTemplate.query(CommentSql.SELECT_CHILD_COMMENTS, commentRowMapper(), c_id);
+			for(Comment childComment : childComments)
+			{
+				jdbcTemplate.update(CommentSql.DELETE_COMMENT, childComment.getC_id());
+			}
+			int result = jdbcTemplate.update(CommentSql.DELETE_COMMENT, c_id);
+			return result;
+						
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			return 0;
+		}
+	}
+	
+	@Override
+	public long deleteChild(int c_id) 
+	{
+		System.out.println("[JdbcCommentRepository] deleteChild");
+		
+		try
+		{
+			int result = jdbcTemplate.update(CommentSql.DELETE_COMMENT, c_id);
+			return result;
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			return 0;
+		}
 	}
 
 	@Override
-	public long saveChild(Comment comment, Member member) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public long delete(int c_id) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public long edit(int c_id, String c_content) {
-		// TODO Auto-generated method stub
-		return 0;
+	public long edit(int c_id, String c_content) 
+	{
+		System.out.println("[JdbcCommentRepository] edit");
+		try
+		{
+			int result = jdbcTemplate.update(CommentSql.UPDATE_COMMENT, c_content, c_id);
+			return result;
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			return 0;
+		}
 	}
 
 	@Override
 	public List<Comment> findAll(int v_id) {
-		// TODO Auto-generated method stub
-		return null;
+		return jdbcTemplate.query(CommentSql.SELECT_ALL_COMMENTS, commentRowMapper(), v_id);
+	}
+
+	private RowMapper<Comment> commentRowMapper()
+	{
+		return (rs, rosNum) -> {
+			Comment comment = new Comment();
+			comment.setC_id(rs.getInt("c_id"));
+			comment.setC_m_id(rs.getInt("c_m_id"));
+			comment.setC_c_id(rs.getInt("c_c_id"));
+			comment.setC_v_id(rs.getInt("c_v_id"));
+			comment.setC_content(rs.getString("c_content"));
+			comment.setC_reg_date(rs.getString("c_reg_date"));
+			comment.setC_mod_date(rs.getString("c_mod_date"));
+			return comment;
+		};
 	}
 	
 }

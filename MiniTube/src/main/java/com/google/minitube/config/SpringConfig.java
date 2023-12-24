@@ -3,8 +3,12 @@ package com.google.minitube.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.google.minitube.repository.CommentRepository;
+import com.google.minitube.repository.LikeRepository;
 import com.google.minitube.repository.MemberRepository;
 import com.google.minitube.repository.VideoRepository;
+import com.google.minitube.repository.Impl.JdbcCommentRepository;
+import com.google.minitube.repository.Impl.JdbcLikeRepository;
 import com.google.minitube.repository.Impl.JdbcMemberRepository;
 import com.google.minitube.repository.Impl.JdbcVideoRepository;
 import com.google.minitube.util.ProfileImageUtil;
@@ -27,6 +31,18 @@ public class SpringConfig
 	public VideoRepository videoRepository()
 	{
 		return new JdbcVideoRepository();
+	}
+	
+	@Bean
+	public CommentRepository commentRepository()
+	{
+		return new JdbcCommentRepository();
+	}
+	
+	@Bean
+	public LikeRepository likeRepository()
+	{
+		return new JdbcLikeRepository();
 	}
 	
 	@Bean
