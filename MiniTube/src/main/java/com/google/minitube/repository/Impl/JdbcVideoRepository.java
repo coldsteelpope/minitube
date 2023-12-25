@@ -118,6 +118,7 @@ public class JdbcVideoRepository implements VideoRepository
 	public List<Video> findAllVideosByMId(int v_m_id) 
 	{
 		System.out.println("[JdbcVideoRepository] findAllVideosByMId");
+
 		List<Video> videos = jdbcTemplate.query(VideoSql.SELECT_ALL_VIDEOS_BY_M_ID, videoRowMapper(), v_m_id);
 		return videos;
 	}
@@ -126,7 +127,7 @@ public class JdbcVideoRepository implements VideoRepository
 	{
 		return (rs, rosNum) -> {
 			Video video = new Video();
-			video.setV_m_id(rs.getInt("v_id"));
+			video.setV_id(rs.getInt("v_id"));
 			video.setV_title(rs.getString("v_title"));
 			video.setV_description(rs.getString("v_description"));
 			video.setV_m_id(rs.getInt("v_m_id"));

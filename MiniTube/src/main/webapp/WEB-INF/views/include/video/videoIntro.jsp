@@ -24,11 +24,23 @@
 					<strong style="border-bottom: 2.5px solid #1ce783;">VIDEO MAKER</strong>
 				</div>
 				<div class="mt-3">
-					<a href=<c:url value="/member/profile/${video.getV_member().getM_id()}" />>
-					<img 
-					style="border-radius: 100%; width: 75px; height: 75px;"
-					src="<c:url value="/libraryProfiles/${video.getV_member().getM_profile_img()}" />" 	
-					/>
+					<a href=<c:url value="/member/profile/${videoMember.getM_id()}" />>
+					
+					<c:choose>
+						<c:when test="${not empty videoMember.getM_profile_img()}">
+							<img 
+							style="border-radius: 100%; width: 75px; height: 75px;"
+							src="<c:url value="/libraryProfiles/${videoMember.getM_profile_img()}" />" 	
+							/>
+						</c:when>
+						<c:otherwise>
+							<img 
+							style="border-radius: 100%; width: 75px; height: 75px;"
+							src="<c:url value="/resources/blank_pic.png" />" 	
+							/>
+						</c:otherwise>
+					</c:choose>
+
 					</a>
 				</div>
 			</div>

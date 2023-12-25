@@ -21,21 +21,23 @@ import com.google.minitube.dto.Comment;
 import com.google.minitube.dto.Member;
 import com.google.minitube.dto.Video;
 import com.google.minitube.service.CommentService;
+import com.google.minitube.service.MemberService;
 import com.google.minitube.service.VideoService;
 
 @Controller
 @RequestMapping("/video")
 public class VideoController 
 {
+	private final MemberService memberService;
 	private final VideoService videoService;
 	private final CommentService commentService;
 	
-	
 	@Autowired
-	public VideoController(VideoService videoService, CommentService commentService)
+	public VideoController(VideoService videoService, CommentService commentService, MemberService memberService)
 	{
 		this.videoService = videoService;
 		this.commentService = commentService;
+		this.memberService = memberService;
 	}
 	
 	
@@ -45,14 +47,17 @@ public class VideoController
 		System.out.println("[VideoController] Watch");
 		HttpSession session = request.getSession();
 		Member member = (Member)session.getAttribute(AuthConstants.SessionName);
-		
-		
+
 		Video video = videoService.findById(v_id);
 		List<Comment> comments = commentService.findAllByVId(v_id);
+		Member videoMember = memberService.findById(video.getV_m_id());
 		
 		model.addAttribute("video", video);
 		model.addAttribute("comments", comments);
 		model.addAttribute("member", member);
+		model.addAttribute("videoMember", videoMember);
+		
+		System.out.println(videoMember.getM_profile_img());
 		
 		return "video/watch";
 	}

@@ -1,5 +1,7 @@
 package com.google.minitube.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -15,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.google.minitube.constants.AuthConstants;
 import com.google.minitube.dto.Member;
+import com.google.minitube.dto.Video;
 import com.google.minitube.service.MemberService;
 import com.google.minitube.service.VideoService;
 
@@ -77,14 +80,15 @@ public class MemberController
 	public String Profile(@PathVariable("m_id") int m_id, Model model, HttpServletRequest request)
 	{
 		Member profileMember = memberSerivce.findById(m_id);
-
 		HttpSession session = request.getSession();
 		Member member = (Member)session.getAttribute(AuthConstants.SessionName);
+		List<Video> videos = videoService.findAllVideosByMId(m_id);
 		
-		model.addAttribute("videos", videoService.findAllVideosByMId(m_id));
+		model.addAttribute("videos", videos);
 		model.addAttribute("member", member);
 		model.addAttribute("profileMember", profileMember);
-		model.addAttribute("isMe", member.getM_id() == profileMember.getM_id());
+		model.addAttribute("isMe", (member == null) ? false : (member.getM_id() == profileMember.getM_id()));
+		
 		
 		return "member/profile";
 	}

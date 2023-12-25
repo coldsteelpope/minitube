@@ -29,14 +29,27 @@
 					<div class="card" style="border-radius: 15px;">
 						<div class="card-body text-center">
 							<div class="mt-3 mb-4">
-								<img
-									src=<c:url value="/libraryProfiles/${profileMember.getM_profile_img()}" />
-									class="rounded-circle img-fluid"
-									style="width: 100px; height: 100px;" />
+							
+								<c:choose>
+									<c:when test="${not empty profileMember.getM_profile_img()}">
+										<img
+										src=<c:url value="/libraryProfiles/${profileMember.getM_profile_img()}" />
+										class="rounded-circle img-fluid"
+										style="width: 100px; height: 100px;" />
+									</c:when>
+									<c:otherwise>
+										<img
+										src=<c:url value="/resources/blank_pic.png" />
+										class="rounded-circle img-fluid"
+										style="width: 100px; height: 100px;" />
+									</c:otherwise>
+								</c:choose>
+
+									
 							</div>
 							<h4 class="mb-2">
-								<strong>${member.getM_lastname()}
-									${member.getM_firstname()}</strong>
+								<strong>${profileMember.getM_lastname()}
+									${profileMember.getM_firstname()}</strong>
 							</h4>
 
 							<c:choose>
@@ -67,7 +80,7 @@
 			<div>
 				<h4 style="color: white;">
 					<span class="me-2" style="border-left: 5px solid #1ce783;"></span><strong>${member.getM_firstname()}
-						${member.getM_lastname()}'S VIDEOS</strong>
+						${profileMember.getM_lastname()}'S VIDEOS</strong>
 				</h4>
 			</div>
 			<jsp:include page="../include/video/videos.jsp"></jsp:include>

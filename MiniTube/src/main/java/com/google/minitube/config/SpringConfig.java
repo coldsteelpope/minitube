@@ -36,7 +36,7 @@ public class SpringConfig
 	@Bean
 	public CommentRepository commentRepository()
 	{
-		return new JdbcCommentRepository();
+		return new JdbcCommentRepository(memberRepository());
 	}
 	
 	@Bean
