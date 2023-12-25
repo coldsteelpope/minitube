@@ -14,7 +14,9 @@ public interface VideoService
 	
 	public Video findById(int v_id);
 	
+	
 	public List<Video> findAll();
+	public List<Video> findAllVideosByMId(int v_m_id);
 	public List<Video> search(String query);
 	public List<Video> findTopThree();
 	

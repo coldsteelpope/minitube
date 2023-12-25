@@ -16,32 +16,54 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.minitube.constants.AuthConstants;
 import com.google.minitube.dto.Member;
 import com.google.minitube.service.MemberService;
+import com.google.minitube.service.VideoService;
 
 @Controller
 @RequestMapping("/member")
 public class MemberController 
 {
+	private final MemberService memberSerivce;
+	private final VideoService videoService;
+	
 	@Autowired
-	MemberService memberSerivce;
+	public MemberController(MemberService memberService, VideoService videoService)
+	{
+		this.memberSerivce = memberService;
+		this.videoService = videoService;
+	}
 
 	@GetMapping("/upload/video")
-	public String uploadVideo(Model model)
+	public String uploadVideo(Model model, HttpServletRequest request)
 	{
-		if(model.getAttribute("fail") == null)
+		HttpSession session = request.getSession();
+		Member member = (Member)session.getAttribute(AuthConstants.SessionName);
+		
+		if(member != null)
 		{
-			model.addAttribute("fail", false);
+			model.addAttribute("member", member);
+			if(model.getAttribute("fail") == null)
+			{
+				model.addAttribute("fail", false);
+			}
+			return "member/create/video";
 		}
-		return "member/create/video";
+		else
+		{
+			session.invalidate();
+			return "redirect:/auth/signin";
+		}
 	}
 	
 	@GetMapping("/manage")
 	public String Manage(Model model, HttpServletRequest request)
 	{
 		HttpSession session = request.getSession();
-		Member loginedMember = (Member)session.getAttribute(AuthConstants.SessionName);
-		if(loginedMember != null)
+		Member member = (Member)session.getAttribute(AuthConstants.SessionName);
+		if(member != null)
 		{
-			model.addAttribute("member", loginedMember);
+			model.addAttribute("member", member);
+			model.addAttribute("videos", videoService.findAllVideosByMId(member.getM_id()));
+
 			return "member/manage";
 		}
 		else
@@ -52,10 +74,18 @@ public class MemberController
 	}
 	
 	@GetMapping("/profile/{m_id}")
-	public String Profile(@PathVariable("m_id") int m_id, Model model)
+	public String Profile(@PathVariable("m_id") int m_id, Model model, HttpServletRequest request)
 	{
-		Member member = memberSerivce.findById(m_id);
+		Member profileMember = memberSerivce.findById(m_id);
+
+		HttpSession session = request.getSession();
+		Member member = (Member)session.getAttribute(AuthConstants.SessionName);
+		
+		model.addAttribute("videos", videoService.findAllVideosByMId(m_id));
 		model.addAttribute("member", member);
+		model.addAttribute("profileMember", profileMember);
+		model.addAttribute("isMe", member.getM_id() == profileMember.getM_id());
+		
 		return "member/profile";
 	}
 	

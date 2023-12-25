@@ -90,5 +90,12 @@ public class VideoServiceImpl implements VideoService
 	{
 		return videoRepository.findTopThreeVideos();
 	}
+
+	@Override
+	public List<Video> findAllVideosByMId(int v_m_id) 
+	{
+		List<Video> videos = videoRepository.findAllVideosByMId(v_m_id);
+		return videos;
+	}
 	
 }

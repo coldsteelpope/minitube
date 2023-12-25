@@ -8,7 +8,7 @@ public class CommentSql
 	
 	/* SELECT */
 	public final static String SELECT_ALL_COMMENTS = "SELECT * FROM minitube_comment WHERE c_v_id = ? AND c_c_id IS NULL";
-	public final static String SELECT_CHILD_COMMENTS = "SELECT * FROM minitube_comment WHERE c_c_id = ?";
+	public final static String SELECT_CHILD_COMMENTS_BY_PARENT_ID = "SELECT * FROM minitube_comment WHERE c_c_id = ?";
 	
 	/* DELETE */
 	public final static String DELETE_COMMENT = "DELETE FROM minitube_comment WHERE c_id = ?";

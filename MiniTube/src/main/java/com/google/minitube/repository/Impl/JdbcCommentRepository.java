@@ -11,12 +11,21 @@ import com.google.minitube.constants.CommentSql;
 import com.google.minitube.dto.Comment;
 import com.google.minitube.dto.Member;
 import com.google.minitube.repository.CommentRepository;
+import com.google.minitube.repository.MemberRepository;
 
 @Repository
 public class JdbcCommentRepository implements CommentRepository 
 {
 	@Autowired
 	JdbcTemplate jdbcTemplate;
+	
+	private final MemberRepository memberRepository;
+	
+	@Autowired
+	public JdbcCommentRepository(MemberRepository memberRepository)
+	{
+		this.memberRepository = memberRepository;
+	}
 	
 	@Override
 	public long save(Comment comment, Member member) 
@@ -66,7 +75,7 @@ public class JdbcCommentRepository implements CommentRepository
 		
 		try
 		{
-			List<Comment> childComments = jdbcTemplate.query(CommentSql.SELECT_CHILD_COMMENTS, commentRowMapper(), c_id);
+			List<Comment> childComments = jdbcTemplate.query(CommentSql.SELECT_CHILD_COMMENTS_BY_PARENT_ID, commentRowMapper(), c_id);
 			for(Comment childComment : childComments)
 			{
 				jdbcTemplate.update(CommentSql.DELETE_COMMENT, childComment.getC_id());
@@ -116,8 +125,14 @@ public class JdbcCommentRepository implements CommentRepository
 	}
 
 	@Override
-	public List<Comment> findAll(int v_id) {
+	public List<Comment> findAllByVId(int v_id) {
 		return jdbcTemplate.query(CommentSql.SELECT_ALL_COMMENTS, commentRowMapper(), v_id);
+	}
+	
+	@Override
+	public List<Comment> findAllByCCId(int c_c_id) 
+	{
+		return jdbcTemplate.query(CommentSql.SELECT_CHILD_COMMENTS_BY_PARENT_ID, commentRowMapper(), c_c_id);
 	}
 
 	private RowMapper<Comment> commentRowMapper()
@@ -131,8 +146,17 @@ public class JdbcCommentRepository implements CommentRepository
 			comment.setC_content(rs.getString("c_content"));
 			comment.setC_reg_date(rs.getString("c_reg_date"));
 			comment.setC_mod_date(rs.getString("c_mod_date"));
+			
+			Member member = memberRepository.findById(rs.getInt("c_m_id"));
+			comment.setC_member(member);
+			
+			List<Comment> childComments = findAllByCCId(comment.getC_id());
+			comment.setComments(childComments);
+			
 			return comment;
 		};
 	}
+
+
 	
 }

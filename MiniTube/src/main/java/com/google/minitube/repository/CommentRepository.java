@@ -12,5 +12,6 @@ public interface CommentRepository
 	public long delete(int c_id);
 	public long deleteChild(int c_id);
 	public long edit(int c_id, String c_content);
-	public List<Comment> findAll(int v_id);
+	public List<Comment> findAllByVId(int v_id);
+	public List<Comment> findAllByCCId(int c_c_id);
 }

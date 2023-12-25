@@ -35,14 +35,13 @@ public class AuthController
 		
 		HttpSession session = request.getSession();
 		Member member = (Member)session.getAttribute(AuthConstants.SessionName);
-		
+		model.addAttribute("member", member);
 		if(member == null)
 		{
 			if(model.getAttribute("fail") == null)
 			{
 				model.addAttribute("fail", false);
 			}
-			
 			return "auth/signup";
 		}
 		else
@@ -58,7 +57,7 @@ public class AuthController
 		
 		HttpSession session = request.getSession();
 		Member member = (Member)session.getAttribute(AuthConstants.SessionName);
-		
+		model.addAttribute("member", member);
 		if(member == null)
 		{
 			if(model.getAttribute("fail") == null)

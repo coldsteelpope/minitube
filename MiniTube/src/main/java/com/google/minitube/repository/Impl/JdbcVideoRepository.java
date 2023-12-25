@@ -114,6 +114,14 @@ public class JdbcVideoRepository implements VideoRepository
 		return videos;
 	}
 	
+	@Override
+	public List<Video> findAllVideosByMId(int v_m_id) 
+	{
+		System.out.println("[JdbcVideoRepository] findAllVideosByMId");
+		List<Video> videos = jdbcTemplate.query(VideoSql.SELECT_ALL_VIDEOS_BY_M_ID, videoRowMapper(), v_m_id);
+		return videos;
+	}
+	
 	private RowMapper<Video> videoRowMapper()
 	{
 		return (rs, rosNum) -> {
@@ -130,6 +138,4 @@ public class JdbcVideoRepository implements VideoRepository
 			return video;
 		};
 	}
-
-
 }

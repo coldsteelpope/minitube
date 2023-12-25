@@ -15,4 +15,5 @@ public interface VideoRepository
 	public List<Video> findAll();
 	public List<Video> findVideosByTitle(String v_title);
 	public List<Video> findTopThreeVideos();
+	public List<Video> findAllVideosByMId(int v_m_id);
 }
