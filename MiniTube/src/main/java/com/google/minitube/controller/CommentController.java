@@ -34,7 +34,10 @@ public class CommentController
 		System.out.println("[CommentController] Create");
 		HttpSession session = request.getSession();
 		Member member = (Member)session.getAttribute(AuthConstants.SessionName);
-		long result = commentService.save(comment, member);
+		
+		System.out.println("member name: " + member.getM_firstname() + " " + member.getM_lastname());
+		
+		long result = commentService.save(comment, member, v_id);
 		
 		if(result == 0)
 		{
@@ -52,7 +55,7 @@ public class CommentController
 		Member member = (Member)session.getAttribute(AuthConstants.SessionName);
 		
 		comment.setC_c_id(c_id);
-		long result = commentService.saveChild(comment, member);
+		long result = commentService.saveChild(comment, member, v_id);
 		
 		if(result == 0)
 		{

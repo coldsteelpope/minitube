@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<form action="<c:url value="/comment/create/${video.getV_id()}" />"
+<form action="<c:url value="/comment/create/${param.v_id}" />"
 	method="post">
 	<div class="form-floating">
 		<textarea name="c_content" class="form-control"

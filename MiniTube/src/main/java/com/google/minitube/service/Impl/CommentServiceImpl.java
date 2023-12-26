@@ -22,16 +22,18 @@ public class CommentServiceImpl implements CommentService
 	}
 
 	@Override
-	public long save(Comment comment, Member member) 
+	public long save(Comment comment, Member member, int v_id) 
 	{
 		System.out.println("[CommentService] save");
+		comment.setC_v_id(v_id);
 		return commentRepository.save(comment, member);
 	}
 
 	@Override
-	public long saveChild(Comment comment, Member member) 
+	public long saveChild(Comment comment, Member member, int v_id)
 	{
 		System.out.println("[CommentService] saveChild");
+		comment.setC_v_id(v_id);
 		return commentRepository.saveChild(comment, member);
 	}
 

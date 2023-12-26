@@ -23,7 +23,7 @@
 							<a class="nav-link active" aria-current="page" href="<c:url value="/member/profile/${member.getM_id()}" />">PROFILE</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="<c:url value="/member/uploadVideo" />">UPLOAD</a>
+							<a class="nav-link" href="<c:url value="/member/upload/video" />">UPLOAD</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="<c:url value="/auth/signoutConfirm" />">LOGOUT</a>

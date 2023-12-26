@@ -96,7 +96,8 @@ public class AuthController
 		}
 		else
 		{
-			session.setAttribute("loginedMember", member);
+			Member loginedMember = memberService.findByEmail(member.getM_mail());
+			session.setAttribute(AuthConstants.SessionName, loginedMember);
 			session.setMaxInactiveInterval(60 * 30);
 			return "redirect:/";
 		}

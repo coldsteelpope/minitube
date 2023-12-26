@@ -2,11 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-
-
 <c:choose>
-	<c:when test="${not empty member && comment.getC_member().getM_id() == member.getM_id()}">
-		<div class="modal fade" id="exampleModal${comment.getC_id()}"
+	<c:when test="${not empty param.member && param.c_m_id == param.m_id}">
+		<div class="modal fade" id="exampleModal${param.c_id}"
 			tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -18,11 +16,11 @@
 							aria-label="Close"></button>
 					</div>
 					<form
-						action="<c:url value="/comment/edit/${comment.getC_id()}/${video.getV_id()}" />"
+						action="<c:url value="/comment/edit/${param.c_id}/${param.v_id}" />"
 						method="post">
 						<div class="modal-body">
 							<textarea name="c_content" class="form-control"><c:out
-									value="${comment.getC_content()}" /></textarea>
+									value="${param.c_content}" /></textarea>
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary"
@@ -37,9 +35,9 @@
 		<div class="d-flex flex-row">
 			<button type="button" class="btn btn-sm btn-primary"
 				data-bs-toggle="modal"
-				data-bs-target="#exampleModal${comment.getC_id()}">EDIT</button>
+				data-bs-target="#exampleModal${param.c_id}">EDIT</button>
 			<form
-				action="<c:url value="/comment/delete/${comment.getC_id()}/${video.getV_id()}" />"
+				action="<c:url value="/comment/delete/${param.c_id}/${param.v_id}" />"
 				method="post">
 				<button class="btn btn-sm btn-danger ms-3" type="submit">
 					DELETE</button>

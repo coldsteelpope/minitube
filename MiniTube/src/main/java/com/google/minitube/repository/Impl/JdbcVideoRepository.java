@@ -73,6 +73,7 @@ public class JdbcVideoRepository implements VideoRepository
 	public long deleteById(int v_id) 
 	{
 		System.out.println("[JdbcVideoRepository] deleteById");
+		System.out.println("v_id: " + v_id);
 		long result = jdbcTemplate.update(VideoSql.DELETE_VIDEO_BY_ID, v_id);
 		return result;
 	}

@@ -32,7 +32,7 @@ public class JdbcCommentRepository implements CommentRepository
 	{
 		System.out.println("[JdbcCommentRepository] save");
 		try
-		{
+		{	
 			int result = jdbcTemplate.update(CommentSql.INSERT_COMMENT,
 					member.getM_id(),
 					comment.getC_v_id(),
@@ -92,6 +92,23 @@ public class JdbcCommentRepository implements CommentRepository
 	}
 	
 	@Override
+	public long deleteAllByCVId(int c_v_id) 
+	{
+		System.out.println("[JdbcCommentRepository] deleteByCVId");
+		try
+		{
+			long deleteChildComments = jdbcTemplate.update(CommentSql.DELETE_CHILD_COMMENTS_BY_C_V_ID, c_v_id);
+			long deleteParentComments = jdbcTemplate.update(CommentSql.DELETE_PARENT_COMMENTS_BY_C_V_ID, c_v_id);
+		
+			return deleteParentComments;
+		}
+		catch(Exception e)
+		{
+			return 0;
+		}
+	}
+	
+	@Override
 	public long deleteChild(int c_id) 
 	{
 		System.out.println("[JdbcCommentRepository] deleteChild");
@@ -125,7 +142,8 @@ public class JdbcCommentRepository implements CommentRepository
 	}
 
 	@Override
-	public List<Comment> findAllByVId(int v_id) {
+	public List<Comment> findAllByVId(int v_id) 
+	{
 		return jdbcTemplate.query(CommentSql.SELECT_ALL_COMMENTS, commentRowMapper(), v_id);
 	}
 	
@@ -149,13 +167,15 @@ public class JdbcCommentRepository implements CommentRepository
 			
 			Member member = memberRepository.findById(rs.getInt("c_m_id"));
 			comment.setC_member(member);
-			
+
 			List<Comment> childComments = findAllByCCId(comment.getC_id());
 			comment.setComments(childComments);
 			
 			return comment;
 		};
 	}
+
+
 
 
 	

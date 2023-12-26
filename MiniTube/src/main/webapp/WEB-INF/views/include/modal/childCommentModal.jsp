@@ -4,10 +4,10 @@
 
 <c:choose>
 	<c:when
-		test="${not empty member && childComment.getC_member().getM_id() == member.getM_id()}">
+		test="${not empty param.member && param.child_c_m_id == param.m_id}">
 
 		<div class="modal fade"
-			id="exampleModal${childComment.getC_id()}" tabindex="-1"
+			id="exampleModal${param.child_c_id}" tabindex="-1"
 			aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -19,10 +19,10 @@
 							aria-label="Close"></button>
 					</div>
 					<form
-						action="<c:url value="/comment/edit/${childComment.getC_id()}/${video.getV_id()}" />"
+						action="<c:url value="/comment/edit/${param.child_c_id}/${param.v_id}" />"
 						method="post">
 						<div class="modal-body">
-							<textarea name="c_content" class="form-control"><c:out value="${childComment.getC_content()}" /></textarea>
+							<textarea name="c_content" class="form-control"><c:out value="${param.chilc_c_content}" /></textarea>
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary"
@@ -39,11 +39,11 @@
 			<div>
 				<button type="button" class="btn btn-sm btn-primary"
 					data-bs-toggle="modal"
-					data-bs-target="#exampleModal${childComment.getC_id()}">EDIT</button>
+					data-bs-target="#exampleModal${param.child_c_id}">EDIT</button>
 			</div>
 			<div>
 				<form
-					action="<c:url value="/comment/child/delete/${childComment.getC_id()}/${video.getV_id()}" />"
+					action="<c:url value="/comment/child/delete/${param.child_c_id}/${param.v_id}" />"
 					method="post">
 					<button class="btn btn-sm btn-danger ms-3" type="submit">
 						DELETE</button>

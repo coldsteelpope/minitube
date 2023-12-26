@@ -35,7 +35,7 @@
 			<div>
 				<jsp:include page="../../include/alert/createVideoFail.jsp"></jsp:include>
 
-				<form action="/minitube/video/uploadVideoConfirm" method="POST"
+				<form action="/minitube/video/create" method="POST"
 					enctype="multipart/form-data">
 					<div>
 						<label style="border-left: 5px solid #1ce783;" class="text-white"

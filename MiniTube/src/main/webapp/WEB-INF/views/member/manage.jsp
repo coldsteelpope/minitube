@@ -30,10 +30,22 @@
 					<div class="card" style="border-radius: 15px;">
 						<div class="card-body text-center">
 							<div class="mt-3 mb-4">
-								<img
-									src=<c:url value="/libraryProfiles/${member.getM_profile_img()}" />
-									class="rounded-circle img-fluid"
-									style="width: 100px; height: 100px;" />
+
+								<c:choose>
+									<c:when test="${not empty member.getM_profile_img()}">
+										<img
+											src=<c:url value="/libraryProfiles/${member.getM_profile_img()}" />
+											class="rounded-circle img-fluid"
+											style="width: 100px; height: 100px;" />
+									</c:when>
+									<c:otherwise>
+										<img src=<c:url value="/resources/blank_pic.png" />
+											class="rounded-circle img-fluid"
+											style="width: 100px; height: 100px;" />
+									</c:otherwise>
+								</c:choose>
+
+
 							</div>
 							<h4 class="mb-2">
 								<strong>${member.getM_lastname()}
@@ -86,11 +98,20 @@
 						<div>
 							<!-- Delete Button -->
 							<div>
-								<jsp:include page="../include/btn/deleteVideoBtn.jsp" ></jsp:include>
+								<jsp:include page="../include/btn/deleteVideoBtn.jsp">
+									<jsp:param value="${video.getV_id()}" name="v_id" />
+									<jsp:param value="${member.getM_id()}" name="m_id" />
+								</jsp:include>
 							</div>
 							<!-- Edit Button -->
 							<div>
-								<jsp:include page="../include/modal/editVideoModal.jsp"></jsp:include>
+								
+								<jsp:include page="../include/modal/editVideoModal.jsp">
+									<jsp:param value="${video.getV_id()}" name="v_id"/>
+									<jsp:param value="${video.getV_title()}" name="v_title" />
+									<jsp:param value="${video.getV_description()}" name="v_description" />
+									<jsp:param value="${member.getM_id()}" name="m_id" />
+								</jsp:include>
 							</div>
 						</div>
 					</div>

@@ -27,9 +27,9 @@
 					<div class="carousel-caption text-start">
 						<h1><c:out value="${topVideo.getV_title()}" /></h1>
 						<p><c:out value="${topVideo.getV_description()}" /></p>
-						<button class="btn btn-lg" style="background: #1ce783; color: white;" onclick="location.href='<c:url value="/video/watch/${topVideo.getV_id()}" />">
+						<a class="btn btn-lg" style="background: #1ce783; color: white;" href="<c:url value="/video/watch/${topVideo.getV_id()}" />">
 							WATCH NOW
-						</button>
+						</a>
 					</div>
 				</div>
 			</c:forEach>

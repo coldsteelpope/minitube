@@ -61,7 +61,7 @@
 											UPLOAD VIDEO</button>
 										<button type="button"
 											class="btn btn-outline-success btn-rounded"
-											onclick="location.href='<c:url value="/member/manage/${member.getM_id()}" />'">
+											onclick="location.href='<c:url value="/member/manage" />'">
 											MANGE PROFILE</button>
 									</div>
 								</c:when>

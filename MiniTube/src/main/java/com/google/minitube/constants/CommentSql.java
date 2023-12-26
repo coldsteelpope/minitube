@@ -12,6 +12,8 @@ public class CommentSql
 	
 	/* DELETE */
 	public final static String DELETE_COMMENT = "DELETE FROM minitube_comment WHERE c_id = ?";
+	public final static String DELETE_PARENT_COMMENTS_BY_C_V_ID = "DELETE FROM minitube_comment WHERE c_v_id = ? AND c_c_id IS NULL";
+	public final static String DELETE_CHILD_COMMENTS_BY_C_V_ID = "DELETE FROM minitube_comment WHERE c_v_id = ? AND c_c_id IS NOT NULL"; 
 	
 	/* UPDATE */
 	public final static String UPDATE_COMMENT = "UPDATE minitube_comment SET c_content = ? WHERE c_id = ?";

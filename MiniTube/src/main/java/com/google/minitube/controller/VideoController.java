@@ -41,6 +41,12 @@ public class VideoController
 	}
 	
 	
+	@GetMapping("/sorry")
+	public String Sorry()
+	{
+		return "video/sorry";
+	}
+	
 	@GetMapping("/watch/{v_id}")
 	public String Watch(@PathVariable("v_id") int v_id, Model model, HttpServletRequest request)
 	{
@@ -49,17 +55,22 @@ public class VideoController
 		Member member = (Member)session.getAttribute(AuthConstants.SessionName);
 
 		Video video = videoService.findById(v_id);
-		List<Comment> comments = commentService.findAllByVId(v_id);
-		Member videoMember = memberService.findById(video.getV_m_id());
-		
-		model.addAttribute("video", video);
-		model.addAttribute("comments", comments);
-		model.addAttribute("member", member);
-		model.addAttribute("videoMember", videoMember);
-		
-		System.out.println(videoMember.getM_profile_img());
-		
-		return "video/watch";
+		if(video == null)
+		{
+			return "redirect:/video/sorry";
+		}
+		else
+		{
+			List<Comment> comments = commentService.findAllByVId(v_id);
+			Member videoMember = memberService.findById(video.getV_m_id());
+			
+			model.addAttribute("video", video);
+			model.addAttribute("comments", comments);
+			model.addAttribute("member", member);
+			model.addAttribute("videoMember", videoMember);
+
+			return "video/watch";
+		}
 	}
 	
 	@PostMapping("/delete/{v_id}")
@@ -70,7 +81,7 @@ public class VideoController
 		Member member = (Member)session.getAttribute(AuthConstants.SessionName);
 		
 		long result = videoService.delete(v_id);
-		return "redirect:/member/manage/" + Integer.toString(member.getM_id());
+		return "redirect:/member/manage/";
 	}
 	
 	@PostMapping("/edit/{v_id}")
@@ -88,7 +99,7 @@ public class VideoController
 		
 		long result = videoService.update(v_id, video, thumbnailFile);
 		
-		return "redirect:/member/manage/" + Integer.toString(member.getM_id());
+		return "redirect:/member/manage/";
 	}
 	
 	@PostMapping("/create")
@@ -112,7 +123,7 @@ public class VideoController
 		}
 		else
 		{
-			long result = videoService.save(video, thumbnailFile, videoFile);
+			long result = videoService.save(video, thumbnailFile, videoFile, member);
 			if(result > 0)
 			{
 				return "redirect:/member/profile/" + Integer.toString(member.getM_id());

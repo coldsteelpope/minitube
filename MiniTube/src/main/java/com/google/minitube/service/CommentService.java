@@ -7,8 +7,8 @@ import com.google.minitube.dto.Member;
 
 public interface CommentService 
 {
-	public long save(Comment comment, Member member);
-	public long saveChild(Comment comment, Member member);
+	public long save(Comment comment, Member member, int v_id);
+	public long saveChild(Comment comment, Member member, int v_id);
 	public long delete(int c_id);
 	public long deleteChild(int c_id);
 	public long edit(int c_id, String c_content);
