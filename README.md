@@ -14,14 +14,18 @@
 
 
 ## 4. 기능
-
 ### 4.1. 회원가입 및 로그인
+![회원가입](https://github.com/coldsteelpope/minitube/assets/128117575/9736854c-0eab-43ca-83f9-45cbb03fc9cd)
+
+![미니튜브 로그인](https://github.com/coldsteelpope/minitube/assets/128117575/f6f96f2e-c4ff-41d6-8f54-7bb0ec0ac6bd)
 
 ### 4.2. 비디오 페이지
 
 ### 4.3. 비디오 검색
 
 ### 4.4. 비디오 업로드
+![미니튜브동영상업로드](https://github.com/coldsteelpope/minitube/assets/128117575/0f4454a1-ec36-4b04-92ec-6d33b1d6c944)
 
 ### 4.5. 비디오 수정 및 삭제
+![미니튜브비디오정보수정](https://github.com/coldsteelpope/minitube/assets/128117575/8e233bbc-1756-4483-aa37-9c8391f744e2)
 
