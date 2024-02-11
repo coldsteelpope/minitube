@@ -43,7 +43,7 @@
 ### 4.4. 비디오 업로드
 ![미니튜브동영상업로드](https://github.com/coldsteelpope/minitube/assets/128117575/0f4454a1-ec36-4b04-92ec-6d33b1d6c944)
 
-비디오 업로드 화면입니다. 설정해둔 경로 안에 비디오를 저장합니다.
+비디오 업로드 화면입니다. 설정해둔 경로 안에 비디오 및 썸네일을 저장합니다.
 
 ### 4.5. 비디오 수정 및 삭제
 ![미니튜브비디오정보수정](https://github.com/coldsteelpope/minitube/assets/128117575/8e233bbc-1756-4483-aa37-9c8391f744e2)
